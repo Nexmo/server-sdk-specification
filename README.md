@@ -9,9 +9,10 @@ This repository contains:
 
 Workflow
 --------
-- Client Libraries repositories should be named in this format: TBD
-- Development should use feature branches merged into a development branch.
-- Releases should be tagged with semantic versions from the master branch.
+- Client Libraries repositories should be named in this format: `nexmo-[language/runtime]`
+  For example: `nexmo-java`, `nexmo-php`, `nexmo-node`
+- Development should use feature branches merged into a `develop` branch.
+- Releases should be tagged with semantic versions from the `master` branch.
 
 Contributions
 -------------
