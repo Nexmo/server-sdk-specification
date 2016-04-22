@@ -17,11 +17,13 @@ Alternatively you can [CLONE, DOWNLOAD]
 
 Configuration
 -------------
+_Use this *or* 'Usage', depending on the language norms._
 
 [How to create / configure the client]
 
 Usage
 -----
+_Use this *or* 'Configuration', depending on the language norms._
 
 [How to create / use the client]
 
@@ -40,7 +42,7 @@ Use [Nexmo's SMS API][doc_sms] to send an SMS message.
 
 ### [Additional Examples]
 
-API API Coverage
+API Coverage
 ------------
 
 * Account
@@ -84,5 +86,11 @@ Contributing
 
 [TBD]
 
+License
+-------
+
+This library is released under the [MIT License][license]
+
 [signup]: http://nexmo.com?src=[LANGUAGE]-client-library
 [doc_sms]: https://docs.nexmo.com/api-ref/sms-api
+[license]: LICENSE.txt
