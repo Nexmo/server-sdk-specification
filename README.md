@@ -5,7 +5,7 @@ This repository contains:
 
 - The [generic functional specification][spec] for Nexmo client libraries.
 - [Related examples][examples] as guides to implementing the specification.
-- Templates for library [README](readme] and [LICENSE][license].
+- Templates for library [README](readme) and [LICENSE][license].
 
 Workflow
 --------
