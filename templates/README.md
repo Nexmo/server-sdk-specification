@@ -2,7 +2,7 @@ Nexmo [LANGUAGE]
 ===================================
 [BADGES, BUILD STATUS, ETC]
 
-You use this [LANGUAGE] client library for Nexmo API to easily implement Nexmo [functionality](#API-Coverage) in your app.
+You use this [LANGUAGE] client library to easily implement Nexmo [functionality](#API-Coverage) into your app.
 
 This document explains:
 
