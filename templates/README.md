@@ -1,7 +1,7 @@
 Nexmo Client Library for [LANGUAGE] [BADGES, BUILD STATUS, ETC]
 ===================================
 
-[Installation](#Installation) | [Configuration](#Configuration) |  [Usage](#Usage) |  [Examples](#Examples) | [Coverage](#API-Coverage) | [Contributing](#Contributing)  
+[Installation](#installation) | [Configuration](#configuration) |  [Usage](#usage) |  [Examples](#examples) | [Coverage](#api-coverage) | [Contributing](#Contributing)  
 
 This is the [LANGUAGE] client library for use Nexmo's API. To use this, you'll need a Nexmo account. Sign up [for free
 at nexmo.com][signup].
