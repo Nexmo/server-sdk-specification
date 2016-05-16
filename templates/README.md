@@ -1,143 +1,121 @@
-Nexmo [LANGUAGE]
+Nexmo Client Library for [LANGUAGE]
 ===================================
 [BADGES, BUILD STATUS, ETC]
 
-You use this [LANGUAGE] client library to easily implement Nexmo [functionality](#API-Coverage) into your app.
+You use this [LANGUAGE] client library to use [Nexmo's API](#api-coverage). To use this, you'll need a Nexmo account. 
+Sign up [for free at nexmo.com][signup]. 
 
-This document explains:
-
- * [Installation](#Installation)
- * [Configuration](#Configuration)
- * [Usage](#Usage)
- * [Examples](#Examples)
- * [Coverage](#API-Coverage)
- * [Contributing](#Contributing)  
+ * [Installation](#installation)
+ * [Configuration](#configuration)
+ * [Usage](#usage)
+ * [Examples](#examples)
+ * [Coverage](#api-coverage)
+ * [Contributing](#contributing) 
 
 
-# Installation
+Installation
 ------------
 
-To install Nexmo [LANGUAGE] you must:
+To use the client library you'll need to have [created a Nexmo account][signup]. 
 
-1. If you do not already have one, [Create a Nexmo account][create_account].
-2. Install Nexmo [LANGUAGE] using either:
-    * [PACKAGE MANAGER]:
-       1. [COMMAND, CONFIGURATION].
-    * Download:
-       1. [CLONE, DOWNLOAD].
+To install the [LANGUAGE] client library using [PACKAGE MANAGER]:
 
-# Configuration
+    COMMAND, CONFIGURATION
+
+Alternatively you can [CLONE, DOWNLOAD]
+
+    EXAMPLE CLONE COMMAND
+
+
+Configuration
 -------------
 _Use this *or* 'Usage', depending on the language norms._
 
-To configure Nexmo [LANGUAGE]:
-1. Do this.
-2. Then that.
+To configure Nexmo [LANGUAGE] in your application:
 
-# Usage
+Some step 
+
+    EXAMPLE OF THAT STEP
+    
+Another step
+
+    EXAMPLE OF THAT STEP
+
+Usage
 -----
 _Use this *or* 'Configuration', depending on the language norms._
 
-The usage for Nexmo [LANGUAGE] is:
-1. Do this.
-2. Then that.
+To use Nexmo [LANGUAGE] in your application, create a instance of the client library using your Nexmo API credentials. 
 
-# Examples
+    EXAMPLE CODE
+
+Examples
 --------
-The following examples show you how to:
+The following examples show how to:
  * [Send a message](#Send-a-message)
  * [Receive a message](#Receive-a-message)
  * [Initiate a call](#Initiate-a-call)
  * [Additional Examples](#Additional-examples)
 
-## Send a message
+### Sending A Message
 
-To <action similar to title> using Nexmo [LANGUAGE]:
-1. Do this:
-  ``//example code showing something important``
-2. Then that:
-  ``//example code showing something else important``
-3. The result is:
-  ``//Example of what to expect``
+Use [Nexmo's SMS API][doc_sms] to send an SMS message. 
 
-The complete code example is:
-```[LANGUAGE]
-  Complete code example
-```
+    //example code showing the client sending an SMS message, and using the response
 
-## Receive a message
-To <action similar to title> using Nexmo [LANGUAGE]:
-1. Do this:
-  ``//example code showing something important``
-2. The result is:
-  ``//Example of what to expect``
 
-The complete code example is:
-```[LANGUAGE]
-  Complete code example
-```
+### Receiving a Message
 
-## Initiate a call
+### Initiating a Voice Call
 
-To <action similar to title> using Nexmo [LANGUAGE]:
-1. Do this:
-  ``//example code showing something important``
-2. The result is:
-  ``//Example of what to expect``
+### [Additional Examples]
 
-The complete code example is:
-```[LANGUAGE]
-  Complete code example
-```
 
-## Additional examples
+API Coverage
+------------
 
-You get the idea.
-
-# API Coverage
-
-Nexmo [LANGUAGE] covers the following functionality in Nexmo API:
-_Remove the functionality that is not covered by your library._
-* Messaging
-    * SMS API
-        * Send
-        * Delivery receipt
-        * Inbound messages
-    * US Short Codes API
-        * Two-factor Authentication API
-        * Event Based Alerts API: Sending Alerts
-        * Event Based Alerts API: Campaign Subscription Management
-* Voice
-    * Call API
-    * Text-To-Speech API
-    * Text-To-Speech Prompt API
-    * SIP
-* Verify
-    * Request
-    * Check
-    * Search
-    * Control
+* Account
+    * [X] Balance
+    * [ ] Pricing
+    * [ ] Settings
+    * [ ] Top Up
+    * [ ] Numbers
+        * [ ] Search
+        * [ ] Buy
+        * [ ] Cancel
+        * [ ] Update
 * Number Insight
-    * Number Insight Basic API
-    * Number Insight Standard API
-    * Number Insight Advanced API    
-* Developer API
-  * Account
-      * Get Balance
-      * Pricing
-      * Settings
-      * Top Up
-      * Numbers
-  * Number
-      * Search
-      * Buy
-      * Cancel
-      * Update
-  * Search
-      * Message
-      * Messages
-      * Rejections
-
+    * [ ] Basic
+    * [ ] Standard
+    * [ ] Advanced
+    * [ ] Webhook Notification
+* Verify
+    * [ ] Verify
+    * [ ] Check
+    * [ ] Search
+    * [ ] Control
+* Search
+    * [ ] Message
+    * [ ] Messages
+    * [ ] Rejections
+* Messaging 
+    * [ ] Send
+    * [ ] Delivery Receipt
+    * [ ] Inbound Messages
+    * [ ] Search
+        * [ ] Message
+        * [ ] Messages
+        * [ ] Rejections
+    * US Short Codes
+        * [ ] Two-Factor Authentication
+        * [ ] Event Based Alerts
+            * [ ] Sending Alerts
+            * [ ] Campaign Subscription Management
+* Voice
+    * [ ] Outbound Calls
+    * [ ] Inbound Call
+    * [ ] Text-To-Speech Call
+    * [ ] Text-To-Speech Prompt
 
 Contributing
 ------------
