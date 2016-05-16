@@ -127,6 +127,6 @@ License
 This library is released under the [MIT License][license]
 
 [create_account]: https://docs.nexmo.com/tools/dashboard#setting-up-your-nexmo-account
-[signup]: http://nexmo.com?utm_source=DEV_REL&utm_medium=github&utm_campaign=[LANGUAGE]-client-library
-[doc_sms]: https://docs.nexmo.com/api-ref/sms-api
+[signup]: https://dashboard.nexmo.com/sign-up?utm_source=DEV_REL&utm_medium=github&utm_campaign=[LANGUAGE]-client-library
+[doc_sms]: https://docs.nexmo.com/api-ref/sms-api?utm_source=DEV_REL&utm_medium=github&utm_campaign=[LANGUAGE]-client-library
 [license]: LICENSE.txt
