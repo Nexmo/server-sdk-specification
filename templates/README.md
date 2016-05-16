@@ -1,34 +1,61 @@
-Nexmo Client Library for [LANGUAGE] [BADGES, BUILD STATUS, ETC]
+Nexmo Client Library for [LANGUAGE]
 ===================================
+[BADGES, BUILD STATUS, ETC]
 
-[Installation](#installation) | [Configuration](#configuration) |  [Usage](#usage) |  [Examples](#examples) | [Coverage](#api-coverage) | [Contributing](#Contributing)  
+You use this [LANGUAGE] client library to use [Nexmo's API](#api-coverage). To use this, you'll need a Nexmo account. 
+Sign up [for free at nexmo.com][signup]. 
 
-This is the [LANGUAGE] client library for use Nexmo's API. To use this, you'll need a Nexmo account. Sign up [for free
-at nexmo.com][signup].
+ * [Installation](#installation)
+ * [Configuration](#configuration)
+ * [Usage](#usage)
+ * [Examples](#examples)
+ * [Coverage](#api-coverage)
+ * [Contributing](#contributing) 
+
 
 Installation
 ------------
 
+To use the client library you'll need to have [created a Nexmo account][signup]. 
+
 To install the [LANGUAGE] client library using [PACKAGE MANAGER]:
 
-[COMMAND, CONFIGURATION]
+    COMMAND, CONFIGURATION
 
 Alternatively you can [CLONE, DOWNLOAD]
+
+    EXAMPLE CLONE COMMAND
+
 
 Configuration
 -------------
 _Use this *or* 'Usage', depending on the language norms._
 
-[How to create / configure the client]
+To configure Nexmo [LANGUAGE] in your application:
+
+Some step 
+
+    EXAMPLE OF THAT STEP
+    
+Another step
+
+    EXAMPLE OF THAT STEP
 
 Usage
 -----
 _Use this *or* 'Configuration', depending on the language norms._
 
-[How to create / use the client]
+To use Nexmo [LANGUAGE] in your application, create a instance of the client library using your Nexmo API credentials. 
+
+    EXAMPLE CODE
 
 Examples
 --------
+The following examples show how to:
+ * [Send a message](#Send-a-message)
+ * [Receive a message](#Receive-a-message)
+ * [Initiate a call](#Initiate-a-call)
+ * [Additional Examples](#Additional-examples)
 
 ### Sending A Message
 
@@ -36,11 +63,13 @@ Use [Nexmo's SMS API][doc_sms] to send an SMS message.
 
     //example code showing the client sending an SMS message, and using the response
 
+
 ### Receiving a Message
 
 ### Initiating a Voice Call
 
 ### [Additional Examples]
+
 
 API Coverage
 ------------
@@ -51,15 +80,16 @@ API Coverage
     * [ ] Settings
     * [ ] Top Up
     * [ ] Numbers
-* Number
-    * [ ] Search
-    * [ ] Buy
-    * [ ] Cancel
-    * [ ] Update
-* NumberInsight
-    * [ ] Request
-    * [ ] Response
-* NumberVerify
+        * [ ] Search
+        * [ ] Buy
+        * [ ] Cancel
+        * [ ] Update
+* Number Insight
+    * [ ] Basic
+    * [ ] Standard
+    * [ ] Advanced
+    * [ ] Webhook Notification
+* Verify
     * [ ] Verify
     * [ ] Check
     * [ ] Search
@@ -68,18 +98,24 @@ API Coverage
     * [ ] Message
     * [ ] Messages
     * [ ] Rejections
-* Short Code
-    * [ ] 2FA
-    * [ ] Alerts
-    * [ ] Marketing
-* SMS
+* Messaging 
     * [ ] Send
-    * [ ] Receipt
-    * [ ] Inbound
+    * [ ] Delivery Receipt
+    * [ ] Inbound Messages
+    * [ ] Search
+        * [ ] Message
+        * [ ] Messages
+        * [ ] Rejections
+    * US Short Codes
+        * [ ] Two-Factor Authentication
+        * [ ] Event Based Alerts
+            * [ ] Sending Alerts
+            * [ ] Campaign Subscription Management
 * Voice
-    * [ ] Call
-    * [ ] TTS/TTS Prompt
-    * [ ] SIP
+    * [ ] Outbound Calls
+    * [ ] Inbound Call
+    * [ ] Text-To-Speech Call
+    * [ ] Text-To-Speech Prompt
 
 Contributing
 ------------
@@ -91,6 +127,7 @@ License
 
 This library is released under the [MIT License][license]
 
+[create_account]: https://docs.nexmo.com/tools/dashboard#setting-up-your-nexmo-account
 [signup]: http://nexmo.com?src=[LANGUAGE]-client-library
 [doc_sms]: https://docs.nexmo.com/api-ref/sms-api
 [license]: LICENSE.txt
