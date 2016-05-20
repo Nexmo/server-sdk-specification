@@ -75,32 +75,31 @@ API Coverage
 
 * Account
     * [X] Balance
-    * [ ] Pricing
     * [ ] Settings
     * [ ] Top Up
-    * [ ] Numbers
-        * [ ] Search
-        * [ ] Buy
-        * [ ] Cancel
-        * [ ] Update
+    * [ ] Update Password
+    * [ ] Update SMS Webhook Callback
+    * [ ] Update Delivery Receipt Webhook Callback
+* [ ] Numbers
+    * [ ] Search
+    * [ ] Pricing
+    * [ ] Buy
+    * [ ] Cancel
+    * [ ] Update
 * Number Insight
     * [ ] Basic
     * [ ] Standard
     * [ ] Advanced
-    * [ ] Webhook Notification
+    * [ ] Check Webhook Notification Signature
 * Verify
-    * [ ] Verify
+    * [ ] Start
     * [ ] Check
     * [ ] Search
     * [ ] Control
-* Search
-    * [ ] Message
-    * [ ] Messages
-    * [ ] Rejections
 * Messaging 
     * [ ] Send
-    * [ ] Delivery Receipt
-    * [ ] Inbound Messages
+    * [ ] Check Delivery Receipt Webhook Signature
+    * [ ] Check Inbound Messages Webhook Signature
     * [ ] Search
         * [ ] Message
         * [ ] Messages
@@ -111,10 +110,10 @@ API Coverage
             * [ ] Sending Alerts
             * [ ] Campaign Subscription Management
 * Voice
-    * [ ] Outbound Calls
-    * [ ] Inbound Call
+    * [ ] Outbound Call
     * [ ] Text-To-Speech Call
     * [ ] Text-To-Speech Prompt
+    * [ ] Check Inbound Call Webhook Signature
 
 Contributing
 ------------
