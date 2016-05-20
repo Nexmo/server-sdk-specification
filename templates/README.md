@@ -74,46 +74,46 @@ API Coverage
 ------------
 
 * Account
-    * [X] Balance
-    * [ ] Settings
-    * [ ] Top Up
-    * [ ] Update Password
-    * [ ] Update SMS Webhook Callback
-    * [ ] Update Delivery Receipt Webhook Callback
+    * [X] Balance (`account.balance`)
+    * [ ] Settings (`account.settings`)
+    * [ ] Top Up (`account.topUp`)
+    * [ ] Update Password (`account.updatePassword`)
+    * [ ] Update SMS Webhook Callback (`account.updateSmsWebHookCallback`)
+    * [ ] Update Delivery Receipt Webhook Callback (`account.updateDeliveryReceiptWebHookCallback`)
 * [ ] Numbers
-    * [ ] Search
-    * [ ] Pricing
-    * [ ] Buy
-    * [ ] Cancel
-    * [ ] Update
+    * [ ] Search (`number.search`)
+    * [ ] Pricing (`account.getPrice`)
+    * [ ] Buy (`number.buy`)
+    * [ ] Cancel (`number.cancel`)
+    * [ ] Update (`number.update`)
 * Number Insight
-    * [ ] Basic
-    * [ ] Standard
-    * [ ] Advanced
-    * [ ] Check Webhook Notification Signature
+    * [ ] Basic (`numberInsight({level:basic})`)
+    * [ ] Standard (`numberInsight({level:standard})`)
+    * [ ] Advanced (`numberInsight({level:advanced})`)
+    * [ ] Check Webhook Notification Signature (`webhook.validate`)
 * Verify
-    * [ ] Start
-    * [ ] Check
-    * [ ] Search
-    * [ ] Control
+    * [ ] Start (`verify.start`)
+    * [ ] Check (`verify.check`)
+    * [ ] Search (`verify.search`)
+    * [ ] Control (`verify.control`)
 * Messaging 
-    * [ ] Send
-    * [ ] Check Delivery Receipt Webhook Signature
-    * [ ] Check Inbound Messages Webhook Signature
-    * [ ] Search
-        * [ ] Message
-        * [ ] Messages
-        * [ ] Rejections
+    * [ ] Send (`sms.send`)
+    * [ ] Check Delivery Receipt Webhook Signature (`webhook.validate`)
+    * [ ] Check Inbound Messages Webhook Signature (`webhook.validate`)
+    * [ ] Search 
+        * [ ] Message (`sms.search(messageId)`)
+        * [ ] Messages (`sms.search({ids:[], date:DATE, to:NUMBER})`)
+        * [ ] Rejections (`sms.search({rejected:true, date:DATE, to:NUMBER})`)
     * US Short Codes
         * [ ] Two-Factor Authentication
         * [ ] Event Based Alerts
             * [ ] Sending Alerts
             * [ ] Campaign Subscription Management
 * Voice
-    * [ ] Outbound Call
-    * [ ] Text-To-Speech Call
-    * [ ] Text-To-Speech Prompt
-    * [ ] Check Inbound Call Webhook Signature
+    * [ ] Outbound Call (`voice.call`)
+    * [ ] Text-To-Speech Call (`voice.textToSpeech`)
+    * [ ] Text-To-Speech Prompt (`voice.textToSpeechPrompt`)
+    * [ ] Check Inbound Call Webhook Signature (`webhook.validate`)
 
 Contributing
 ------------
