@@ -112,6 +112,16 @@ Errors:
  	* Transport error (could not reach the API).
  	* API Errors (error response from API).
  	* Validation Errors (unexpected data from API).
+- Should attach request / response to error objects.
+
+###Logging
+Troubleshooting failed API requests can be difficult, so access to logs are invaluable. Logging:
+
+- Should use language / runtime standard log if available and generally used.
+- Must be configurable:
+  - Can be disabled / enabled
+  - Verbosity can be defined.
+- Can delegate configuration to a logging interface if generally used.
 
 ###Testing
 As developers rely on a working client library, it should be both tested and testable. Client libraries:
