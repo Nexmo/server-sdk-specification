@@ -108,10 +108,15 @@ Interactions with the API may result in an error, these may be transport errors,
 Errors:
  
 - Must be wrapped in native errors or exceptions.
-- Should have a type that classifies the error
- 	* Transport error (could not reach the API).
- 	* API Errors (error response from API).
- 	* Validation Errors (unexpected data from API).
+- Should have a type that classifies the general error:
+    * Transport Errors (could not reach the API, did not receive a response from the API).
+    * Client Errors (invalid data, bad credentials, API rejected due to invalid request, 400 class errors).
+    * Server Errors (internal API error, could not complete the request, 500 class errors).
+    * Unexpected Errors (unexpected data from API).
+- Should unify presentation of errors, regardless of API:
+    * Legacy APIs return a status of `200` with an error body.
+    * New APIs should return the proper status, with error details in the body.
+- Should pass on specific error codes and error message from API.
 
 ###Testing
 As developers rely on a working client library, it should be both tested and testable. Client libraries:
