@@ -51,9 +51,10 @@ A developer will create a client object with some configuration values. This con
 ###HTTP Client
 A client library will be making HTTP requests to Nexmo's API. Client libraries:
 
+- Must use a well supported HTTP client.
+- Must use a HTTP client that supports proxies.
 - Should use the official/runtime provided HTTP client if available.
-- Should use a well supported HTTP client.
-- Should when possible allow a user defined HTTP client.
+- Should allow a user defined HTTP client.
 - Should allow HTTP requests to be created but not sent.
     * This is not the standard usage.
     * This allows a developer to interact with the request if needed.

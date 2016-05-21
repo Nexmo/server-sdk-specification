@@ -29,7 +29,7 @@ Alternatively you can [CLONE, DOWNLOAD]
 
 Configuration
 -------------
-_Use this *or* 'Usage', depending on the language norms._
+_Optional: Generally for compiled languages, how to configure for build._
 
 To configure Nexmo [LANGUAGE] in your application:
 
@@ -40,12 +40,21 @@ Some step
 Another step
 
     EXAMPLE OF THAT STEP
-
+    
 Usage
 -----
-_Use this *or* 'Configuration', depending on the language norms._
-
 To use Nexmo [LANGUAGE] in your application, create a instance of the client library using your Nexmo API credentials. 
+
+    EXAMPLE CODE
+    
+### Using a Proxy
+    
+The client library supports passing requests through a proxy in two ways. You can change override the host and base path
+used when making API requests:
+
+    EXAMPLE CODE
+    
+You can also configure the client library to work with a traditional proxie server:
 
     EXAMPLE CODE
 
