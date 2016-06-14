@@ -93,10 +93,6 @@ API Coverage
     * [ ] Check
     * [ ] Search
     * [ ] Control
-* Search
-    * [ ] Message
-    * [ ] Messages
-    * [ ] Rejections
 * Messaging 
     * [ ] Send
     * [ ] Delivery Receipt
@@ -105,7 +101,7 @@ API Coverage
         * [ ] Message
         * [ ] Messages
         * [ ] Rejections
-    * US Short Codes
+    * [ ] US Short Codes
         * [ ] Two-Factor Authentication
         * [ ] Event Based Alerts
             * [ ] Sending Alerts
