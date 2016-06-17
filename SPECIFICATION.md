@@ -132,5 +132,6 @@ To better understand the usage of needs of developers building on Nexmo, librari
 
 - Must identify requests as originating from the library.
 - Must report internal client library version in each request.
-- Should report language version in each request. 
-- Should set a user-agent with the following format: LIBRARY-NAME/LIBRARY-VERSION/LANGUAGE-VERSION
+- Should report language version in each request, if not possible must replort version as `-`
+- Must set a user-agent with the following format: `LIBRARY-NAME/LIBRARY-VERSION/LANGUAGE-VERSION`
+- Must allow an application name and version to be appended with the following format: `/APP-NAME/APP-VERSION`
