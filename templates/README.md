@@ -82,7 +82,6 @@ API Coverage
     * [ ] Update Delivery Receipt Webhook Callback (`account.updateDeliveryReceiptWebHookCallback`)
 * [ ] Numbers
     * [ ] Search (`number.search`)
-    * [ ] Pricing (`account.getPrice`)
     * [ ] Buy (`number.buy`)
     * [ ] Cancel (`number.cancel`)
     * [ ] Update (`number.update`)
@@ -91,19 +90,21 @@ API Coverage
     * [ ] Standard (`numberInsight({level:standard})`)
     * [ ] Advanced (`numberInsight({level:advanced})`)
     * [ ] Check Webhook Notification Signature (`webhook.validate`)
+* Pricing
+    * [ ] Get Price (`pricing.get`)
 * Verify
     * [ ] Start (`verify.start`)
     * [ ] Check (`verify.check`)
     * [ ] Search (`verify.search`)
     * [ ] Control (`verify.control`)
-* Messaging 
-    * [ ] Send (`sms.send`)
-    * [ ] Check Delivery Receipt Webhook Signature (`webhook.validate`)
-    * [ ] Check Inbound Messages Webhook Signature (`webhook.validate`)
+* Message 
+    * [ ] Send SMS (`message.sendSms`)
+    * [ ] Check Delivery Receipt Webhook Signature (`.message.validateWebhook`)
+    * [ ] Check Inbound Messages Webhook Signature
     * [ ] Search 
-        * [ ] Message (`sms.search(messageId)`)
-        * [ ] Messages (`sms.search({ids:[], date:DATE, to:NUMBER})`)
-        * [ ] Rejections (`sms.search({rejected:true, date:DATE, to:NUMBER})`)
+        * [ ] Message (`message.search(messageId)`)
+        * [ ] Messages (`message.search({ids:[], date:DATE, to:NUMBER})`)
+        * [ ] Rejections (`message.search({rejected:true, date:DATE, to:NUMBER})`)
     * US Short Codes
         * [ ] Two-Factor Authentication
         * [ ] Event Based Alerts
