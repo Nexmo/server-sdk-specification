@@ -105,7 +105,7 @@ API Coverage
         * [ ] Message (`message.search(messageId)`)
         * [ ] Messages (`message.search({ids:[], date:DATE, to:NUMBER})`)
         * [ ] Rejections (`message.search({rejected:true, date:DATE, to:NUMBER})`)
-    * US Short Codes
+    * [ ] US Short Codes
         * [ ] Two-Factor Authentication
         * [ ] Event Based Alerts
             * [ ] Sending Alerts
