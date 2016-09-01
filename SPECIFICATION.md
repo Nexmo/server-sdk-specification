@@ -41,12 +41,27 @@ Specification
 ### Creating a Client
 A developer will create a client object with some configuration values. This configuration:
 
-- Must support API credentials (key and secret) for authentication.
-- Must support OAuth1 token for authentication.
-- Must require an authentication method (credentials or oauth) for construction.
+- Must support multiple authentication credentials (see '[]Authenticating Requests](authenticating-requests)')
+- Must require at least one authentication credential for construction.
 - Must allow override of the base URL(s) (currently there are multiple base urls).
-- Must allow a shared secret (for WebHook request signatures).
 - Must not force a singleton (but may provide access to a singleton).
+ 
+### Authenticating Requests
+The current state of the API allows multiple authentication credentials. The client library:
+
+- Must allow a combination (one or more) of the following credential types:
+    - Must allow an API Key and Secret (current API)
+    - Must allow a signature secret (use for _some_ API requests, and to validate WebHook signatures)
+    - Must allow multiple private keys for JWT authentication (replacing key and secret)
+    - May allow OAuth1 token for authentication
+- Must not allow more than one credential per type.
+- Must determine what type of authentication credential should be used for a request.
+- May allow choosing a type of authentication credential when an API supports more than one.
+- May generate a short lived JWT per request.
+- May generate a longer loved JWT for multiple requests.
+- Must provide a method to generate a JWT:
+    - Must allow user provided application id.
+    - Must allow optional user provided valid timestamps (`nbf` and `exp`)
  
 ###HTTP Client
 A client library will be making HTTP requests to Nexmo's API. Client libraries:
@@ -126,6 +141,7 @@ Troubleshooting failed API requests can be difficult, so access to logs are inva
   - Can be disabled / enabled
   - Verbosity can be defined.
 - Can delegate configuration to a logging interface if generally used.
+
 
 ###Testing
 As developers rely on a working client library, it should be both tested and testable. Client libraries:
