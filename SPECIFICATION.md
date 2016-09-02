@@ -50,17 +50,22 @@ A developer will create a client object with some configuration values. This con
 The current state of the API allows multiple authentication credentials. The client library:
 
 - Must allow a combination (one or more) of the following credential types:
-    - Must allow an API Key and Secret (current API)
-    - Should allow a signature secret (use for _some_ API requests, and to validate WebHook signatures)
-    - Must allow a private key for JWT authentication (replacing key and secret)
+    - Must allow an API Key and Secret (used for _most_ requests, being replaced by JWT)
+    - Should allow a signature secret (used for _some_ API requests, and to validate WebHook signatures)
+    - Must allow a private key for JWT authentication (used for _some requests, eventually replacing key and secret)
     - Should allow OAuth1 token for authentication
 - Must not allow multiple credentials of the same type (two private keys, two sets of key and secret, etc).
 - Must determine what type of authentication credential should be used for a request.
-- May allow choosing a type of authentication credential when an API supports more than one.
+- Should prefer authentication types in this order, when an API supports more than one:
+    - JWT
+    - OAuth
+    - Signature Secret
+    - Key / Secret
+- May allow choosing a type of authentication credential when an API supports more than one. 
 - May generate a short lived JWT per request.
 - May generate a long lived JWT for multiple requests.
 - Must provide a method to generate a JWT:
-    - Must allow user provided application id.
+    - Must allow user provided application id
     - Must allow optional user provided timestamp the JWT becomes valid (`nbf`)
     - Must allow optional user provided timestamp the JWT expires (`exp`)
  
