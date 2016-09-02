@@ -41,7 +41,7 @@ Specification
 ### Creating a Client
 A developer will create a client object with some configuration values. This configuration:
 
-- Must support multiple authentication credentials (see '[]Authenticating Requests](authenticating-requests)')
+- Must support multiple authentication credentials (see '[Authenticating Requests](authenticating-requests)')
 - Must require at least one authentication credential for construction.
 - Must allow override of the base URL(s) (currently there are multiple base urls).
 - Must not force a singleton (but may provide access to a singleton).
@@ -51,17 +51,18 @@ The current state of the API allows multiple authentication credentials. The cli
 
 - Must allow a combination (one or more) of the following credential types:
     - Must allow an API Key and Secret (current API)
-    - Must allow a signature secret (use for _some_ API requests, and to validate WebHook signatures)
-    - Must allow multiple private keys for JWT authentication (replacing key and secret)
-    - May allow OAuth1 token for authentication
-- Must not allow more than one credential per type.
+    - Should allow a signature secret (use for _some_ API requests, and to validate WebHook signatures)
+    - Must allow a private key for JWT authentication (replacing key and secret)
+    - Should allow OAuth1 token for authentication
+- Must not allow multiple credentials of the same type (two private keys, two sets of key and secret, etc).
 - Must determine what type of authentication credential should be used for a request.
 - May allow choosing a type of authentication credential when an API supports more than one.
 - May generate a short lived JWT per request.
-- May generate a longer loved JWT for multiple requests.
+- May generate a long lived JWT for multiple requests.
 - Must provide a method to generate a JWT:
     - Must allow user provided application id.
-    - Must allow optional user provided valid timestamps (`nbf` and `exp`)
+    - Must allow optional user provided timestamp the JWT becomes valid (`nbf`)
+    - Must allow optional user provided timestamp the JWT expires (`exp`)
  
 ###HTTP Client
 A client library will be making HTTP requests to Nexmo's API. Client libraries:
