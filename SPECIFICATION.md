@@ -54,6 +54,7 @@ The current state of the API allows multiple authentication credentials. The cli
     - Should allow a signature secret (used for _some_ API requests, and to validate WebHook signatures)
     - Must allow a private key for JWT authentication (used for _some requests, eventually replacing key and secret)
     - Should allow OAuth1 token for authentication
+- Must allow all credential types as string values, may also support alternative values (path to file, etc).
 - Must not allow multiple credentials of the same type (two private keys, two sets of key and secret, etc).
 - Must determine what type of authentication credential should be used for a request.
 - Should prefer authentication types in this order, when an API supports more than one:
