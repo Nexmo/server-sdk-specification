@@ -67,8 +67,10 @@ The current state of the API allows multiple authentication credentials. The cli
 - May generate a long lived JWT for multiple requests.
 - Must provide a method to generate a JWT:
     - Must allow user provided application id
-    - Must allow optional user provided timestamp the JWT becomes valid (`nbf`)
-    - Must allow optional user provided timestamp the JWT expires (`exp`)
+    - Must allow user defined parameters in the token body.
+    - Must provide default timestamps the JWT validity (`nbf`) and expiration (`exp`) and issued (`iat`).
+    - Must provide default value for the unique JWT identifier (`jti`).
+    - Must only use defaults if not defined by the user.
  
 ###HTTP Client
 A client library will be making HTTP requests to Nexmo's API. Client libraries:
