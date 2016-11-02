@@ -92,18 +92,18 @@ When a developer makes an API call through the client library, the interface for
 - MUST be represented as a namespaced method of the client library.
 - SHOULD namespace following the path structure of the API:
     * `POST /calls/`: `client.calls.post(data)`
-    * `GET /calls/1234`: `client.calls('1234').get`
+    * `GET /calls/1234`: `client.calls('1234').get()`
     * `PUT /calls/1234`: `client.calls('1234').put(data)`
     * `PUT /calls/1234/stream`: `client.calls('1234').stream.put(data)`
     * `DELETE /calls/1234/talk`: `client.calls('1234').talk.delete()`
     * `PUT /conversations/1234/members/5678`: `client.conversations('1234').members('5678').put(data)`
-- MAY namespace with resource ID as parameter (if recommended fluent-like namespacing is not possible / practice):
+- MAY namespace with resource ID as method parameter (if recommended fluent-like namespacing is not possible / practice):
     * `GET /calls/1234`: `client.calls.get('1234')`
     * `PUT /calls/1234`: `client.calls.put(data, '1234')`
     * `PUT /conversations/1234/members/5678`: `client.conversations.members.put(data, '1234', '5678')`
     * `PUT /conversations/1234/members/5678`: `client.conversations.members.put(data, ['1234', '5678'])`
 - MAY also be represented as methods of an entity object returned by the client:
-    * `PUT /calls/1234/stream`: `client.calls.get('1234').stream.put(data)`     
+    * `PUT /calls/1234/stream`: `client.calls.get('1234').stream.put(data)`
 - MAY alias HTTP method names to CRUD for configuration resources:
     * `POST /applications/`: `client.applications.create(data)`
     * `PUT /applications/1234`:  `client.applications.update(data)`
@@ -112,9 +112,10 @@ When a developer makes an API call through the client library, the interface for
 - SHOULD provide convenience methods for transactional resources:    
     * `PUT /calls/1234`: `client.calls('1234).hangup()`
     * `PUT /calls/1234`: `client.calls('1234).transfer(url)`
-- MAY alias `get()` to the namespaced method:
+- MAY alias `get()` to the namespaced method, but MUST include subresource methods on the returned method:
     * `client.calls.get('1234)` = `client.calls('1234')`
     * `client.calls.get('1234)` = `client.calls('1234')`
+    * `client.calls('1234).stream.put(data)`    
 - SHOULD allow optional rate limiting.
     * SHOULD gracefully handle rate limit errors by default.
     * MAY optimistically avoid rate limit with a configurable self imposed rate limit.
