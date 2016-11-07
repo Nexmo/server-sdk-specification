@@ -77,6 +77,7 @@ A client library will be making HTTP requests to Nexmo's API. Client libraries:
 
 - SHOULD use the official/runtime provided HTTP client if available.
 - SHOULD use a well supported HTTP client.
+- SHOULD use a HTTP client that supports proxies.
 - SHOULD allow a user defined / configured HTTP client.
 - SHOULD allow user created HTTP requests to be sent.
     * This allows use of new APIs / legacy APIs without explicit support.
