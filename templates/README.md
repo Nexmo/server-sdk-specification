@@ -116,6 +116,18 @@ API Coverage
             * [ ] Sending Alerts
             * [ ] Campaign Subscription Management
 * Voice
+    * [ ] Create call
+    * [ ] List calls
+    * [ ] Get call info
+    * [ ] Modify existing call
+    * [ ] Stream audio to an existing call
+    * [ ] Stop streaming audio to an existing call
+    * [ ] Send speech to an existing call
+    * [ ] Stop speech in an existing call
+    * [ ] Send DTMF to an existing call
+    * [ ] eventUrl webhook support
+    * [ ] answerUrl webhook support
+* Voice (Deprecated API)
     * [ ] Outbound Calls
     * [ ] Inbound Call
     * [ ] Text-To-Speech Call
