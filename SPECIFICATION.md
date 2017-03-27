@@ -72,7 +72,7 @@ The current state of the API allows multiple authentication credentials. The cli
     * MUST provide default value for the unique JWT identifier (`jti`).
     * MUST only use defaults if not defined by the user.
  
-###HTTP Client
+### HTTP Client
 A client library will be making HTTP requests to Nexmo's API. Client libraries:
 
 - SHOULD use the official/runtime provided HTTP client if available.
@@ -87,7 +87,7 @@ A client library will be making HTTP requests to Nexmo's API. Client libraries:
     * This allows testing of HTTP and API error handling.
     * This allows testing of rich objects as responses.
  
-###API Methods
+### API Methods
 When a developer makes an API call through the client library, the interface for that call:
 
 - MUST be represented as a namespaced method of the client library.
@@ -125,7 +125,7 @@ When a developer makes an API call through the client library, the interface for
 - SHOULD accept entity objects as input:
     * MUST use interface based entity types as inputs.
  
-###Entities
+### Entities
 API calls can create, manipulate, and retrieve entities (resources, objects, things, etc). Client libraries should 
 represent these entities in a concrete way. API entities:
 
@@ -141,7 +141,7 @@ represent these entities in a concrete way. API entities:
     * MAY provide configuration to define the entity class the client creates.
 - MUST only be required as interfaces.
 
-###API WebHooks
+### API WebHooks
 When Nexmo sends a WebHook to the developer's application, the client library:
 
 - MUST support checking the request signature.
@@ -153,7 +153,7 @@ When Nexmo sends a WebHook to the developer's application, the client library:
     * MUST allow the exception or error to be suppressed.
     * MUST normalize the values into proper types.
  
-###Errors
+### Errors
 Interactions with the API may result in an error, these errors:
  
 - MUST be wrapped in native errors or exceptions.
@@ -168,7 +168,7 @@ Interactions with the API may result in an error, these errors:
 - SHOULD pass on specific error codes and error message from API.
 - SHOULD provide access to the request / response objects.
 
-###Logging
+### Logging
 Troubleshooting failed API requests can be difficult, so access to logs are invaluable. Logging:
 
 - SHOULD use language / runtime standard log if available and generally used.
@@ -177,7 +177,7 @@ Troubleshooting failed API requests can be difficult, so access to logs are inva
   - MAY allow verbosity to be defined.
 - MAY delegate configuration to a logging interface if generally used.
 
-###Testing
+### Testing
 As developers rely on a working client library, it should be both tested and testable. Client libraries:
 
 - SHOULD be fully unit tested.
@@ -186,7 +186,7 @@ As developers rely on a working client library, it should be both tested and tes
 - SHOULD use API specification as source of mock requests and responses.
     * When API specification is not available, this specification may be used as the repository for test data.
     
-###Reporting
+### Reporting
 To better understand the usage of needs of developers building on Nexmo, libraries:
 
 - MUST identify requests as originating from the library.
