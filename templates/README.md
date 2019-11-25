@@ -9,8 +9,7 @@ need a Nexmo account. Sign up [for free at nexmo.com][signup].
  * [Configuration](#configuration)
  * [Usage](#usage)
  * [Examples](#examples)
- * [Coverage](#api-coverage)
- * [Contributing](#contributing) 
+  * [Contributing](#contributing) 
 
 
 Installation
@@ -78,65 +77,10 @@ Use [Nexmo's SMS API][doc_sms] to send an SMS message.
 
 ### [Additional Examples]
 
-
-API Coverage
-------------
-
-* Account
-    * [X] Balance
-    * [ ] Pricing
-    * [ ] Settings
-    * [ ] Top Up
-    * [ ] Numbers
-        * [ ] Search
-        * [ ] Buy
-        * [ ] Cancel
-        * [ ] Update
-* Number Insight
-    * [ ] Basic
-    * [ ] Standard
-    * [ ] Advanced
-    * [ ] Webhook Notification
-* Verify
-    * [ ] Verify
-    * [ ] Check
-    * [ ] Search
-    * [ ] Control
-* Messaging 
-    * [ ] Send
-    * [ ] Delivery Receipt
-    * [ ] Inbound Messages
-    * [ ] Search
-        * [ ] Message
-        * [ ] Messages
-        * [ ] Rejections
-    * [ ] US Short Codes
-        * [ ] Two-Factor Authentication
-        * [ ] Event Based Alerts
-            * [ ] Sending Alerts
-            * [ ] Campaign Subscription Management
-* Voice
-    * [ ] Create call
-    * [ ] List calls
-    * [ ] Get call info
-    * [ ] Modify existing call
-    * [ ] Stream audio to an existing call
-    * [ ] Stop streaming audio to an existing call
-    * [ ] Send speech to an existing call
-    * [ ] Stop speech in an existing call
-    * [ ] Send DTMF to an existing call
-    * [ ] eventUrl webhook support
-    * [ ] answerUrl webhook support
-* Voice (Deprecated API)
-    * [ ] Outbound Calls
-    * [ ] Inbound Call
-    * [ ] Text-To-Speech Call
-    * [ ] Text-To-Speech Prompt
-
 Contributing
 ------------
 
-[TBD]
+This library is actively developed and we love to hear from you! Please feel free to [create an issue][issues] or [open a pull request][pulls] with your questions, comments, suggestions and feedback.
 
 License
 -------
@@ -147,3 +91,5 @@ This library is released under the [MIT License][license]
 [signup]: https://dashboard.nexmo.com/sign-up?utm_source=DEV_REL&utm_medium=github&utm_campaign=[LANGUAGE]-client-library
 [doc_sms]: https://docs.nexmo.com/api-ref/sms-api?utm_source=DEV_REL&utm_medium=github&utm_campaign=[LANGUAGE]-client-library
 [license]: LICENSE.txt
+[issues]: https://github.com/Nexmo/nexmo-[LANGUAGE]/issues
+[pulls]: https://github.com/Nexmo/nexmo-[LANGUAGE]/pulls

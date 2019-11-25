@@ -2,12 +2,12 @@ Examples
 ========
 **TODO**: Replace with directory structure and examples from exsisting libraries as much as possible.
 
-##Entities / Objects as Arguments
+## Entities / Objects as Arguments
     //based off the current java client library
     TextMessage message = new TextMessage(SMS_FROM, SMS_TO, SMS_TEXT);
     results = client.sms.send(message);
     
-##Entities / Objects Reuse
+## Entities / Objects Reuse
     //php style psudocode
     $request = new VerifyRequest(NUMBER, BRAND);
     $request->setCodeLength(6);
@@ -19,7 +19,7 @@ Examples
       
     $result = $client->verify->check($verification, CODE);
     
-##Authorization 
+## Authorization 
     //from php library
     use Nexmo\Client as NexmoClient;
     use Nexmo\Credentials\Basic;
@@ -27,12 +27,12 @@ Examples
       
     $client = new NexmoClient(new Basic(API_KEY, API_SECRET));
 
-##Optional Settings
+## Optional Settings
     //php style psudocode, proxy all requests through runscope
     $auth = new Basic(API_KEY, API_SECRET);
     $client = new NexmoClient($auth, ['https://api-nexmo-com-6r3o7ueg4emv.runscope.net/', 'https://rest-nexmo-com-6r3o7ueg4emv.runscope.net/'], SHARED_SECRET);
     
-##Rate Limited APIs
+## Rate Limited APIs
     //php style psudocode, default rate handling
     $message = new TextMessage(TO, FROM, TEXT);
     foreach($numbers as $number){
@@ -56,7 +56,7 @@ Examples
         //if rate limit response is received, client automatically backs off and tries again
     }
     
-##Callback Support
+## Callback Support
     //from php library
     try{
         $callback = Nexmo\Network\Number\Callback::fromEnv();
@@ -69,7 +69,7 @@ Examples
         echo $callback->getNumber() . ' is a ' . $callback->getType() . ' number';
     }
 
-##Callback / Entity Support: Adding Additional Data
+## Callback / Entity Support: Adding Additional Data
     //from php library
     //fetch partial response from memcache
     $response = $memcached->get($callback->id());
@@ -84,7 +84,7 @@ Examples
         $response = $memcached->set($callback->id(), $response);
     }
 
-##Callback / Entity Support: Adding DLR
+## Callback / Entity Support: Adding DLR
     //php style psudocode
     $message = $nexmoClient->sms->send(new TextMessage(TO, TEXT, FROM));
       
