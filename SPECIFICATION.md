@@ -25,6 +25,16 @@ Callback support may be provided in a separate module with extra dependencies to
 ## HTTP Transports
 The libraries should all make use of each ecosystem's best-quality HTTP library, even if it means an added 3rd-party dependency. Each client object should maintain a pool of open HTTP connections, making subsequent calls less expensive.
 
+### User Agents
+
+Each library should set up a custom user agent for tracking. By default, the string must be in the following format and contain the library name, library version, language name, and language version:
+
+* `LIBRARY-NAME/LIBRARY-VERSION LANGUAGE-NAME/LANGUAGE-VERSION`
+
+The library must allow the user to append an application name and, if needed, an application version. If the user supplies this information, it will be appended to produce the following format:
+
+* `LIBRARY-NAME/LIBRARY-VERSION LANGUAGE-NAME/LANGUAGE-VERSION APP-NAME[/APP-VERSION]`
+
 ## Logging
 Each SDK should use the standardized logging system as determined by the language (a PSR-3 client like Monolog for PHP, Log4J for Java, etc). The SDKs should have DEBUG-level logging which can be turned on and off by the users. We should redact client secrets. 
 
