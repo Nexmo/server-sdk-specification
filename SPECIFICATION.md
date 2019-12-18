@@ -39,13 +39,16 @@ The library must allow the user to append an application name and, if needed, an
 Each SDK should use the standardized logging system as determined by the language (a PSR-3 client like Monolog for PHP, Log4J for Java, etc). The SDKs should have DEBUG-level logging which can be turned on and off by the users. We should redact client secrets. 
 
 ## Pagination
-By default, pagination should be hidden from the user and exposed as a cursor or iterable for high-level functions. Users may, if they elect, drop down to a closer API level client to do manual paging. For example, a library will expose a higher-level function to retrieve objects that will do proper hydration and dependency injection, while allowing the user to use a direct API object to get back raw values.
+By default, pagination should be hidden from the user and exposed as a cursor or iterable for high-level functions. Users may, if they elect, drop down to a closer API level client to do manual paging if the endpoint supports it. For example, a library will expose a higher-level function to retrieve objects that will do proper hydration and dependency injection, while allowing the user to use a direct API object to get back raw values.
 
 The higher level iterable/cursors should be smart enough to reduce the number of HTTP requests that they make with sane defaults. For example, a paging size of 1 or 100 can be suboptimal, where a paging size of 5 or 10 may be more suitable. This value may change based on the product/endpoint.
 
+Cursor-based endpoints that cannot accept a page may accept the next or previous cursor page link as a substitute.
+
 Examples:
-* `$client->conversations()->searchConversations($filter)` will return an iterable that returns Conversation objects
-* `$client->conversations()->getApiClient()->get($filter, 3)` will return page 3 of the given filter results
+* `$client->conversations()->searchConversations($filter)` will return an iterable that returns Conversation objects, and will handle paging or cursor navigation internally
+* `$client->conversations()->getApiClient()->get($filter)`, with `$filter` being given a `page=3` option, will return page 3 of the given filter results
+* `$client->conversations()->getApiClient()->get($filter)`, with `$filter` being given a `cursor=abcd` option,  will return the next page of the cursor of the filter results
   
 ## Testing
 At a minimum, each server library should strive for 100% unit test coverage, which can be automated through Continuous Integration tools. While it is acknowledged that unit testing coverage alone is not indicative of whether a library is fully tested, having the ability to write tests as bugs are found is very important.
