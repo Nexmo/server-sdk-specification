@@ -1,198 +1,156 @@
-Nexmo Client Library Functional Specification
-=============================================
- 
-Overview
---------
-The goal of this document is to make all Nexmo Client Libraries have a similar feel, while still adopting the standard 
-practice and usage of each individual language. This is a functional specification based on the user's interaction with 
-the client library.
+# Server Library Specification
+The goal of this document is to make all Nexmo Server Libraries have a similar feel, while still adopting the standard practice and usage of each language. This is mostly a functional specification based on the user's interaction with the server library.
 
-- This document is a work in progress, and should be changed and updated as changes are made to the APIs or developer 
-  needs are discovered.
-- Currently there is no versioning this document or guidelines to version libraries based on their adoption of this 
-  specification. There should be.
-- Client Libraries attempt to make the API and the data it provides simple and easy to use. They do not attempt to 
-  solve specific use cases.
-- This specification only applies to languages that are object oriented.
- 
-Reasonings
-----------
-Some of the concepts behind the actual specification. 
+* This document is a work in progress and should be changed and updated as changes are made to the APIs or developer needs are discovered.
+* Server Libraries attempt to make the API and the data it provides simple and easy to use. In some cases, this may involve implementing small amounts of extra functionality in the client.
+* This specification is designed primarily for object-oriented languages that support inheritance. In other systems, this specification should be adapted to the conventions of the target language.
 
-- Leveraging existing HTTP Clients makes it possible for users to call the API directly when needed, with auth handled 
-  by the client library.
-- Using entities / objects instead of simple hashes / arrays allows IDEs to autocomplete, creates less dependence on 
-  API reference, can normalize some inconsistencies.
-- Using entities / objects allows easy reuse of parameter sets. 
-- Using entities / objects potentially helps with storage of related data.
-- Providing parsed objects (not just raw response) removes the need for users to implement complex error checking / 
-  parsing.
-- Leveraging errors and exceptions as provided by a language removes the need for users to implement complex error 
-  checking / parsing.
-- Providing support for callbacks enables easy signature support and removes verbose sanity checks on inbound data 
-  before it can be used.
-- Providing example requests / responses (of both successful and failed requests) allows testing to be isolated to the 
-  client, not an integration test that involves the API.
-- Sharing entities / objects between API methods and callbacks allows reuse in cases like a reply or proxy, or building 
-  of more complex entities in cases like messages and DLRs, or verifications.
- 
-Specification
--------------
-### Creating a Client
-A developer will create a client object with some configuration values. This configuration:
+## General Principles
+* Ideally, our server libraries should provide a simple, easy-to-use interface to the Nexmo APIs. In practice, the libraries should attempt to clean up some of the data required or returned by the older APIs. (ints returned as strings in JSON, for example, or more complex: parsed timestamps to native date objects). While the SDKs may provide a low-level interface to directly interact with the API, each SDK should provide an interface that abstracts out the fact the SDK is backed by an HTTP API.
+* JSON data structures are not native to most programming languages, and so should not be expected or provided by the API's top-level methods. The data should be deserialized soon, serialized late, and held in objects which can provide richer functionality than simple dicts, lists, etc.
+* Our libraries should be explicit. In some cases, it may be less work to have the library definition defined in a data file and dynamically loaded. In practice, this causes problems for IDEs and autocompletion.
+* Parameters should be provided either directly to functions or as part of a 'request' object. They should not be provided as a single dictionary to the function when possible, as this sidesteps all of any IDEs auto-completion. Where groups of parameters go together it makes sense to put them in a value object, which can then be provided as a single parameter.
+* Naming conflicts with language keywords or globals, (e.g: `to` is a keyword in Python) should be corrected using the language's accepted convention. (In Python it is to add an underscore suffix, e.g: `to_`). If you rename a value, document the change in this specification, and ensure it is renamed consistently across all endpoints.
+* For the endpoints which return `420 Enhance your calm`, we will do additional sensible validation before sending the request to the server and additional validation on the response.
+* For endpoints that return a `200 OK` but have an error in the body, we need to check for these on each response. This also includes partial OKs, like with the SMS API. These should be exposed as an error to the user.
+* Although most of Nexmo's APIs are mostly RESTful, this is an implementation detail, and not something we should necessarily promote to the user, who should not care about the semantics of different HTTP verbs such as GET, POST or PUT.
+* Errors should be reported using the language's error functionality. In languages like Java and Python, this would involve throwing an appropriate Exception object. In languages such as Go or Rust, this would involve returning an appropriate error from the function. This means any object returned from the API which represents an error should be used to populate an error type.
+* We should keep third-party dependencies lightweight, but we should not shy away from bringing in third-party dependencies where they make sense. Where depending on third party libraries we should use libraries that are 'de-facto standard' wherever possible. No proprietary dependencies on the SDKs to minimize dependencies disappearing due to commercial interests.
+  
+# Callbacks
+Support should be provided for parsing callback data and verifying the callback. Details to be hashed out.
+Callback support may be provided in a separate module with extra dependencies to the core nexmo library.
 
-- MUST support multiple authentication credentials (see '[Authenticating Requests](authenticating-requests)')
-- MUST require at least one authentication credential for construction.
-- MUST allow override of the base URL(s) (currently there are multiple base urls).
-- MUST not force a singleton (but may provide access to a singleton).
- 
-### Authenticating Requests
-The current state of the API allows multiple authentication credentials. The client library:
+# Behavior
+## HTTP Transports
+The libraries should all make use of each ecosystem's best-quality HTTP library, even if it means an added 3rd-party dependency. Each client object should maintain a pool of open HTTP connections, making subsequent calls less expensive.
 
-- MUST allow a combination (one or more) of the following credential types:
-    * MUST allow an API Key and Secret (used for _most_ requests, being replaced by JWT)
-    * SHOULD allow a signature secret (used for _some_ API requests, and to validate WebHook signatures)
-    * MUST allow a private key for JWT authentication (used for _some requests, eventually replacing key and secret)
-    * MAY allow OAuth1 set of tokens for authentication
-- MUST allow all credential types as string values, may also support alternative values (path to file, etc).
-- MUST NOT allow multiple credentials of the same type (two private keys, two sets of key and secret, etc).
-- MUST determine what type of authentication credential should be used for a request.
-- SHOULD prefer authentication types in this order, when an API supports more than one:
-    * JWT
-    * OAuth
-    * Signature Secret
-    * Key / Secret
-- MAY allow choosing a type of authentication credential when an API supports more than one. 
-- MAY internally generate a short lived JWT per request.
-- MAY internally generate a long lived JWT for multiple requests.
-- MUST provide a method to generate a JWT:
-    * MUST allow user provided application id
-    * MUST allow user defined parameters in the token body.
-    * MUST provide default timestamps the JWT validity (`nbf`) and expiration (`exp`) and issued (`iat`).
-    * MUST provide default value for the unique JWT identifier (`jti`).
-    * MUST only use defaults if not defined by the user.
- 
-### HTTP Client
-A client library will be making HTTP requests to Nexmo's API. Client libraries:
+### User Agents
 
-- SHOULD use the official/runtime provided HTTP client if available.
-- SHOULD use a well supported HTTP client.
-- SHOULD use a HTTP client that supports proxies.
-- SHOULD allow a user defined / configured HTTP client.
-- SHOULD allow user created HTTP requests to be sent.
-    * This allows use of new APIs / legacy APIs without explicit support.
-    * This adds common request properties like authorization, user agent, etc.
-- MAY allow HTTP requests to be created but not sent.
-- MUST be mockable / testable.
-    * This allows testing of HTTP and API error handling.
-    * This allows testing of rich objects as responses.
- 
-### API Methods
-When a developer makes an API call through the client library, the interface for that call:
+Each library should set up a custom user agent for tracking. By default, the string must be in the following format and contain the library name, library version, language name, and language version:
 
-- MUST be represented as a namespaced method of the client library.
-- SHOULD namespace following the path structure of the API:
-    * `POST /calls/`: `client.calls.post(data)`
-    * `GET /calls/1234`: `client.calls('1234').get()`
-    * `PUT /calls/1234`: `client.calls('1234').put(data)`
-    * `PUT /calls/1234/stream`: `client.calls('1234').stream.put(data)`
-    * `DELETE /calls/1234/talk`: `client.calls('1234').talk.delete()`
-    * `PUT /conversations/1234/members/5678`: `client.conversations('1234').members('5678').put(data)`
-- MAY namespace with resource ID as method parameter (if recommended fluent-like namespacing is not possible / practice):
-    * `GET /calls/1234`: `client.calls.get('1234')`
-    * `PUT /calls/1234`: `client.calls.put(data, '1234')`
-    * `PUT /conversations/1234/members/5678`: `client.conversations.members.put(data, '1234', '5678')`
-    * `PUT /conversations/1234/members/5678`: `client.conversations.members.put(data, ['1234', '5678'])`
-- MAY also be represented as methods of an entity object returned by the client:
-    * `PUT /calls/1234/stream`: `client.calls.get('1234').stream.put(data)`
-- MAY alias HTTP method names to CRUD for configuration resources:
-    * `POST /applications/`: `client.applications.create(data)`
-    * `PUT /applications/1234`:  `client.applications.update(data)`
-- MAY alias HTTP method names to natural language for transactional resources:
-    * `POST /verifications/`: `client.verifications.start(data)`
-- SHOULD provide convenience methods for transactional resources:    
-    * `PUT /calls/1234`: `client.calls('1234).hangup()`
-    * `PUT /calls/1234`: `client.calls('1234).transfer(url)`
-- MAY alias `get()` to the namespaced method, but MUST include subresource methods on the returned method:
-    * `client.calls.get('1234)` = `client.calls('1234')`
-    * `client.calls.get('1234)` = `client.calls('1234')`
-    * `client.calls('1234).stream.put(data)`    
-- SHOULD allow optional rate limiting.
-    * SHOULD gracefully handle rate limit errors by default.
-    * MAY optimistically avoid rate limit with a configurable self imposed rate limit.
-    * MUST allow rate limiting to be turned off.
-- MUST accept arguments as input.
-- SHOULD accept entity objects as input:
-    * MUST use interface based entity types as inputs.
- 
-### Entities
-API calls can create, manipulate, and retrieve entities (resources, objects, things, etc). Client libraries should 
-represent these entities in a concrete way. API entities:
+* `LIBRARY-NAME/LIBRARY-VERSION LANGUAGE-NAME/LANGUAGE-VERSION`
 
-- MUST be represented as objects.
-- MAY be reduced to an array or hash.
-- MAY provide the interface of an array or hash.
-- MUST be shared between API requests, responses, and webhooks.
-- SHOULD support the creation of related entities.
-    * A message entity could create another message entity as a reply.
-    * A canceled verification entity could create a new attempt.
-- MUST be extendable and mutable.
-    * If provided an entity as input, MUST use that entity as output.
-    * MAY provide configuration to define the entity class the client creates.
-- MUST only be required as interfaces.
+The library must allow the user to append an application name and, if needed, an application version. If the user supplies this information, it will be appended to produce the following format:
 
-### API WebHooks
-When Nexmo sends a WebHook to the developer's application, the client library:
+* `LIBRARY-NAME/LIBRARY-VERSION LANGUAGE-NAME/LANGUAGE-VERSION APP-NAME[/APP-VERSION]`
 
-- MUST support checking the request signature.
-- SHOULD provide a way to create entity objects from the request.
-    * SHOULD default to using standard parameters / native objects.
-    * MUST allow those parameters to be provided for testing.
-- SHOULD validate and normalize the expected properties.
-    * SHOULD raise an exception or error if properties are invalid.
-    * MUST allow the exception or error to be suppressed.
-    * MUST normalize the values into proper types.
- 
-### Errors
-Interactions with the API may result in an error, these errors:
- 
-- MUST be wrapped in native errors or exceptions.
-- SHOULD have a type that classifies the general error:
-    * `Transport` Errors (could not reach the API, did not receive a response from the API).
-    * `Client` Errors (invalid data, bad credentials, API rejected due to invalid request, 400 class errors).
-    * `Server` Errors (internal API error, could not complete the request, 500 class errors).
-    * `Unexpected` Errors (unexpected data from API).
-- SHOULD unify presentation of errors, regardless of API:
-    * Legacy APIs return a status of `200` with an error body.
-    * New APIs should return the proper status, with error details in the body.
-- SHOULD pass on specific error codes and error message from API.
-- SHOULD provide access to the request / response objects.
+## Logging
+Each SDK should use the standardized logging system as determined by the language (a PSR-3 client like Monolog for PHP, Log4J for Java, etc). The SDKs should have DEBUG-level logging which can be turned on and off by the users. We should redact client secrets. 
 
-### Logging
-Troubleshooting failed API requests can be difficult, so access to logs are invaluable. Logging:
+## Pagination
+By default, pagination should be hidden from the user and exposed as a cursor or iterable for high-level functions. Users may, if they elect, drop down to a closer API level client to do manual paging if the endpoint supports it. For example, a library will expose a higher-level function to retrieve objects that will do proper hydration and dependency injection, while allowing the user to use a direct API object to get back raw values.
 
-- SHOULD use language / runtime standard log if available and generally used.
-- MUST be configurable:
-  - MUST allow enabling / disabling.
-  - MAY allow verbosity to be defined.
-- MAY delegate configuration to a logging interface if generally used.
+The higher level iterable/cursors should be smart enough to reduce the number of HTTP requests that they make with sane defaults. For example, a paging size of 1 or 100 can be suboptimal, where a paging size of 5 or 10 may be more suitable. This value may change based on the product/endpoint.
 
-### Testing
-As developers rely on a working client library, it should be both tested and testable. Client libraries:
+Cursor-based endpoints that cannot accept a page may accept the next or previous cursor page link as a substitute.
 
-- SHOULD be fully unit tested.
-- SHOULD expect test as a part of any pull request.
-- SHOULD be mockable.
-- SHOULD use API specification as source of mock requests and responses.
-    * When API specification is not available, this specification may be used as the repository for test data.
-    
-### Reporting
-To better understand the usage of needs of developers building on Nexmo, libraries:
+Examples:
+* `$client->conversations()->searchConversations($filter)` will return an iterable that returns Conversation objects, and will handle paging or cursor navigation internally
+* `$client->conversations()->getApiClient()->get($filter)`, with `$filter` being given a `page=3` option, will return page 3 of the given filter results
+* `$client->conversations()->getApiClient()->get($filter)`, with `$filter` being given a `cursor=abcd` option,  will return the next page of the cursor of the filter results
+  
+## Testing
+At a minimum, each server library should strive for 100% unit test coverage, which can be automated through Continuous Integration tools. While it is acknowledged that unit testing coverage alone is not indicative of whether a library is fully tested, having the ability to write tests as bugs are found is very important.
 
-- MUST identify requests as originating from the library.
-- MUST report internal client library version in each request.
-- SHOULD report language version in each request, if not possible MUST report version as `-`
-- MUST set a user-agent with the following format: `LIBRARY-NAME/LIBRARY-VERSION LANGUAGE-NAME/LANGUAGE-VERSION`
-    * Example: `nexmo-php/1.0.0 php/7.0.8`
-- MUST allow an application name and version to be appended with the following format: ` APP-NAME/APP-VERSION`
-    * Example: `nexmo-php/1.0.0 php/7.0.8 demo/2.0`
+Unit tests should test both the success as well as failure routes in code. It is not enough to have a test that shows a method works, there must be corresponding tests to show how a method behaves under failure conditions as well. We should make sure that all the failure and success responses documented in the API spec are covered by tests. 
+
+Testing suites should be implemented in the language's standard tooling, such as PHPUnit for PHP or the pytest module for Python. The Server Library maintainer can make the final decision, but the unit test suite must be runnable and reportable from the command line and Continuous Integration tools.
+
+Additional testing may be placed on top of standard unit tests. Server Library maintainers may add additional testing like lint testing, style checking, and static analysis when they see fit.
+
+# Structure
+The top-level entity is a class/struct called NexmoClient. In languages where the library would be imported and used under the 'nexmo' namespace, it may be called Client. E.g `nexmo.Client`. 
+
+## Further Namespacing
+It is possible to put all the required functionality directly into the NexmoClient object, but this creates a large single class, with the potential for naming conflicts. For example, createConversation could exist in the voice and conversation APIs. To avoid this, in languages where this is considered relatively standard, the NexmoClient object should contain fields for each of Nexmo's APIs:
+
+* Account
+* Audit
+* Application
+* Conversation
+* Dispatch
+* Insight
+* Pricing
+* Redact
+* Messages
+* Messaging
+* NumberInsight
+* Numbers
+* Redact
+* Reports
+* Verify
+* Voice
+
+These namespaces should be accessed directly through the client via an accessor. 
+In most languages, these should be accessed directly through the field name, e.g.: `client.application`. In Java, it should be accessed via an accessor, e.g.: `client.getApplicationClient()`
+
+# Naming Principles
+Each ecosystem's conventions for naming and case override anything below, especially whether entities are named using snake_case, CamelCase or some other convention.
+
+Also, consistency trumps everything else. If the library has been written following a different convention, then continue to follow that convention. If the library requires a major overhaul, consider moving to the conventions described below.
+
+## Direct API Call Methods
+When a method is just a wrapper for a specific API function, the method name should take the form of the operationID in the open API spec. In the case of legacy SDK naming, those should be eventually deprecated and moved to the new naming convention.
+
+## Global Verb Definitions for Convenience Methods
+One of the main goals of our Server SDKs is to provide not only access to our APIs but also convenient access to working with our APIs. Many times this means wrapping bare API calls in objects like Services or Facades to make it easier for the developer to do complex operations. When possible, the SDKs should adhere to specific naming conventions for the actions being taken. 
+
+Each function should take the form of verbNoun, with suggestions for verbs from the list below. Nouns may be plural or singular depending on what makes sense but avoid having different functions with the same verb on plural and singular noun eg getMessage & getMessages (which semantically should be called searchMessages).
+
+* **Correct:** `redact.redactTransaction(...)` - this follows the pattern {namespace}.{verb}{noun}
+* **Incorrect:** `redact.transaction(...)` - this mistakes the namespace for a verb, and thus just has the name of the entity (`transaction`) as a function. Function names should almost always contain a verb because functions do things and the verb describes what they do.
+* **Incorrect:** `sms.send(...)` - this mistakes the namespace for the entity. In the future, we may add extra entities to the sms namespace, and then this method will no longer make sense - send what?
+
+### Verbs
+* `create` - Create an object of this type
+* `delete` - Delete an object by ID of this type
+* `get` - Retrieve a specific object by ID
+* `list` - Wrappers for searches that have no search criteria
+* `search` - Return a list of these objects by the search criteria
+* `send` - For operations that do something but do not create a resource, like sending an SMS
+* `update` - Update an existing object with a new copy/data
+
+# Errors
+In most cases, assuming a system supporting inheritance, there should be a top-level NexmoException, extended by NexmoClientException, for reporting errors with the way the API is being used by the client and [NexmoServerException](https://tools.ietf.org/html/rfc7807) for server errors, [NexmoValidationException]( https://nexmo.github.io/api-standards/http-code/400/) or problems with the network or Nexmo APIs. These exceptions will be extended further for more specific cases where more data should be stored in the exception. (Given that each language has a convention for Exception vs Error, these should be adapted to NexmoError, NexmoClientError, as necessary).
+
+## Exception Handling
+The language's native exception/error reporting system should be used for all errors handled by the server library. Endpoints that return 200 or 420 responses on error will be parsed in the server library and converted to appropriate errors where possible.
+
+Partially successful responses (not all parts sent successfully, for example) will be handled as errors, but the error should also provide access to information about exactly what failed and what succeeded. Details to be hashed out.
+
+# Client Construction
+## Authentication
+Either a constructor or initializer should allow the creation of a NexmoClient object with appropriate credential parameters;
+
+This will be one or more of:
+* API KEY & SECRET
+* API KEY, SIGNATURE SECRET, AND SIGNATURE HASH FUNCTION/OPTION
+* API KEY, SECRET, & SIGNATURE SECRET
+* APP ID and PRIVATE KEY
+* APP ID and PRIVATE KEY PATH
+
+If a method supports multiple forms of authentication, it should choose a preferred one in the following order:
+* JWT
+* Signature Secret
+* Key / Secret
+
+Different functions will only support a subset of these, therefore if a function is called that is not supported by the client's provided authentication data an error should be reported. The error message should inform the user of the full set of credentials that would be suitable.
+
+## Endpoint Base URLs
+A client object should allow the base URL to be overridden when it is created.
+
+## Recommended Environment Variable Names
+This is intended for framework-specific extensions where we magically bootstrap a Nexmo Client in a service provider etc.
+
+* `NEXMO_API_KEY`
+* `NEXMO_API_SECRET`
+* `NEXMO_SIGNATURE_SECRET`
+* `NEXMO_SIGNATURE_METHOD`
+* `NEXMO_PRIVATE_KEY`
+* `NEXMO_PRIVATE_KEY_PATH`
+* `NEXMO_APPLICATION_ID`
+
+## JWT Generation
+The client should provide a function for generating a JWT to be used by custom-built requests. Add a wrapper for the JWT generation for the things we know about, but still provide the ability to add custom data. This allows future expandability for upcoming features.
+

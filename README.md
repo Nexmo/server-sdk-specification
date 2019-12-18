@@ -11,7 +11,6 @@ Workflow
 --------
 - Client Libraries repositories should be named in this format: `nexmo-[language/runtime]`
   For example: `nexmo-java`, `nexmo-php`, `nexmo-node`
-- Development should use feature branches merged into a `develop` branch.
 - Releases should be tagged with semantic versions from the `master` branch.
 
 Contributions
