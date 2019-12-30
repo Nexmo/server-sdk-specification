@@ -38,6 +38,16 @@ The library must allow the user to append an application name and, if needed, an
 ## Logging
 Each SDK should use the standardized logging system as determined by the language (a PSR-3 client like Monolog for PHP, Log4J for Java, etc). The SDKs should have DEBUG-level logging which can be turned on and off by the users. We should redact client secrets. 
 
+## Filtering
+Many endpoints allow the users to Search, or Filter, the result sets that are returned. This is a distinctly different operation than a Find operation, which is intended to return a single result. The SDKs should provide an interface for helping developers create and pass along the filters to make it easier to subset information. 
+
+For example, at a base level a `KeyValueFilter` object should be supplied that accepts a set of key-values that can be turned into a filter. Each SDK should implement additional filters as they make sense to the request types. For example, a `CursorFilter` may take a request and a direction (next/previous) to generate a filter to grab the next cursor-based page.
+
+Possible example filters are:
+
+* `EmptyFilter` - A filter that returns all results
+* `KeyValueFilter` - Takes a generic set of keys and values to search by
+
 ## Pagination
 By default, pagination should be hidden from the user and exposed as a cursor or iterable for high-level functions. Users may, if they elect, drop down to a closer API level client to do manual paging if the endpoint supports it. For example, a library will expose a higher-level function to retrieve objects that will do proper hydration and dependency injection, while allowing the user to use a direct API object to get back raw values.
 
