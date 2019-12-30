@@ -164,3 +164,17 @@ This is intended for framework-specific extensions where we magically bootstrap 
 ## JWT Generation
 The client should provide a function for generating a JWT to be used by custom-built requests. Add a wrapper for the JWT generation for the things we know about, but still provide the ability to add custom data. This allows future expandability for upcoming features.
 
+## User Agent Reporting
+
+To better understand the usage of needs of developers building on Nexmo, libraries:
+
+* MUST identify requests as originating from the library.
+* MUST report internal client library version in each request.
+* MUST set a user-agent with the following format: `LIBRARY-NAME/LIBRARY-VERSION LANGUAGE-NAME/LANGUAGE-VERSION`
+    Example: `nexmo-php/1.0.0 php/7.0.8`
+* SHOULD report language version in each request, if not possible MUST report version as `-`
+    Example: `nexmo-php/1.0.0 php/-`
+* MUST allow an application name and version to be appended with the following format: `APP-NAME/APP-VERSION`
+    Example: `nexmo-php/1.0.0 php/7.0.8 demo/2.0`
+
+
