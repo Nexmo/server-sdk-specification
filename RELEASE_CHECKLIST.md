@@ -4,6 +4,7 @@ Whenever a new release is needed for a server SDK, please run through this check
 
 ## Minor/Patch Release
 
+- [ ] Create JIRA item for Release
 - [ ] Make sure that all tests and CI checks are green
 - [ ] Update version numbers where needed
 - [ ] Update any needed code snippets
