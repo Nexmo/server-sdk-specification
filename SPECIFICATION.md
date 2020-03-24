@@ -80,6 +80,7 @@ It is possible to put all the required functionality directly into the NexmoClie
 * Application
 * Conversation
 * Dispatch
+* Insight
 * Pricing
 * Redact
 * Messages
