@@ -1,4 +1,4 @@
-# Server Library Specification
+# Server SDK Specification
 The goal of this document is to make all Nexmo Server Libraries have a similar feel, while still adopting the standard practice and usage of each language. This is mostly a functional specification based on the user's interaction with the server library.
 
 * This document is a work in progress and should be changed and updated as changes are made to the APIs or developer needs are discovered.
