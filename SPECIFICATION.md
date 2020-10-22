@@ -177,4 +177,26 @@ To better understand the usage of needs of developers building on Nexmo, librari
 * MUST allow an application name and version to be appended with the following format: `APP-NAME/APP-VERSION`
     Example: `nexmo-php/1.0.0 php/7.0.8 demo/2.0`
 
+# Versioning
 
+The SDKs shall follow the [Semantic Versioning](https://semver.org/) standard for versioning the APIs. All SDK versioning shall adhere to this MAJOR.MINOR.PATCH versioning scheme.
+
+## Major Versions
+
+Major versions shall only be used for breaking changes to the SDKs and should be kept to a minimum. When multiple breaking changes are approaching it is ideal to group them together into one major Version.
+
+### What Constitutes a Breaking Change
+
+A breaking change occurs whenever something in the SDK changes that would force a developer to edit their code in order
+
+### Providing a Clean Upgrade Path
+
+When releasing a Major version, a backwards compatible final version of the previous major version, with all features not inducing a breaking change, should be released to provide the cleanest upgrade path for developers.
+
+## Minor Versions
+
+Whenever a new feature is added to the SDK that does not induce a breaking change this will bump the minor version.
+
+## Patch Versions
+
+Whenever a new release is warranted to only preform bug fixes it will be considered a patch version.
