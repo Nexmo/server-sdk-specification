@@ -1,9 +1,9 @@
-Nexmo Client Library for [LANGUAGE]
+Vonage Client Library for [LANGUAGE]
 ===================================
 [BADGES, BUILD STATUS, ETC]
 
-You can use this [LANGUAGE] client library to add [Nexmo's API](#api-coverage) to your application. To use this, you'll 
-need a Nexmo account. Sign up [for free at nexmo.com][signup]. 
+You can use this [LANGUAGE] client library to add [Vonage's API](#api-coverage) to your application. To use this, you'll 
+need a Vonage account. Sign up [for free at vonage.com][signup]. 
 
  * [Installation](#installation)
  * [Configuration](#configuration)
@@ -15,7 +15,7 @@ need a Nexmo account. Sign up [for free at nexmo.com][signup].
 Installation
 ------------
 
-To use the client library you'll need to have [created a Nexmo account][signup]. 
+To use the client library you'll need to have [created a Vonage account][signup]. 
 
 To install the [LANGUAGE] client library using [PACKAGE MANAGER]:
 
@@ -42,7 +42,7 @@ Another step
     
 Usage
 -----
-To use Nexmo [LANGUAGE] in your application, create a instance of the client library using your Nexmo API credentials. 
+To use Vonage [LANGUAGE] in your application, create a instance of the client library using your Vonage API credentials. 
 
     EXAMPLE CODE
     
@@ -66,7 +66,7 @@ The following examples show how to:
 
 ### Sending A Message
 
-Use [Nexmo's SMS API][doc_sms] to send an SMS message. 
+Use [Vonage's SMS API][doc_sms] to send an SMS message. 
 
     //example code showing the client sending an SMS message, and using the response
 
@@ -91,5 +91,5 @@ This library is released under the [MIT License][license]
 [signup]: https://dashboard.nexmo.com/sign-up?utm_source=DEV_REL&utm_medium=github&utm_campaign=[LANGUAGE]-client-library
 [doc_sms]: https://docs.nexmo.com/api-ref/sms-api?utm_source=DEV_REL&utm_medium=github&utm_campaign=[LANGUAGE]-client-library
 [license]: LICENSE.txt
-[issues]: https://github.com/Nexmo/nexmo-[LANGUAGE]/issues
-[pulls]: https://github.com/Nexmo/nexmo-[LANGUAGE]/pulls
+[issues]: https://github.com/vonage/vonage-[LANGUAGE]-sdk/issues
+[pulls]: https://github.com/vonage/vonage-[LANGUAGE]-sdk/pulls
