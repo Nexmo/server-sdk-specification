@@ -214,11 +214,10 @@ When a new MINOR release is to be released, `MAJOR.x` will be branched to `MAJOR
 **Branch Example:**
 Given an SDK that is currently working against a `4.x` release, the branch structure would look like the following:
 
-* `4.x`
-* `1.0`
-* `2.0`
-* `3.0`
-* `4.0`
+* `4.x` (default)
+* `1.x`
+* `2.x`
+* `3.x`
 
 ## Workflows
 
@@ -232,9 +231,9 @@ New features will not be made available to previous MAJOR releases, even if the 
 
 ### Bug Fixes
 
-For bug fixes, a pull request and patch should be made against the oldest supported major release that the bug exists in. This allows the fix to be up-merged to all releases that contain the bug. For example, say we currently support the 3.x and 4.x lines of the SDK, and a new bug is discovered in 4.1.0, but after triaging was actually introduced in 3.5.0. The PR would be based on the `3.0` branch, and the pull request set to merge back into `3.0`. Once the pull request is approved and merged into `3.0`, `3.0` can then be merged into any newer supported branches, extending the bugfix to any supported versions.
+For bug fixes, a pull request and patch should be made against the oldest supported major release that the bug exists in. This allows the fix to be up-merged to all releases that contain the bug. For example, say we currently support the 3.x and 4.x lines of the SDK, and a new bug is discovered in 4.1.0, but after triaging was actually introduced in 3.5.0. The PR would be based on the `3.x` branch, and the pull request set to merge back into `3.x`. Once the pull request is approved and merged into `3.x`, `3.x` can then be merged into any newer supported branches, extending the bugfix to any supported versions.
 
-If a bug was introduced in a non-supported version, the bug fix will only be fixed in the oldest supported `MAJOR.0` release it exists in. With the above given support structure, a bug that was introduced in `2.5.0` would only be fixed in `3.0` and higher, if it still exists. If a bug is discovered in `1.7.2` and fixed in the `3.0.0` release, no fix would be created as 1.x and 2.x are not supported, and the bug was already fixed in the oldest supported release, `3.0.0`.
+If a bug was introduced in a non-supported version, the bug fix will only be fixed in the oldest supported `MAJOR.x` release it exists in. With the above given support structure, a bug that was introduced in `2.5.0` would only be fixed in `3.x` and higher, if it still exists. If a bug is discovered in `1.7.2` and fixed in the `3.0.0` release, no fix would be created as 1.x and 2.x are not supported, and the bug was already fixed in the oldest supported release, `3.0.0`.
 
 ### New Major Releases
 
@@ -242,21 +241,19 @@ As outlined in [Providing a Clean Upgrade Path](https://github.com/Nexmo/server-
 
 A new major version may be cut when there is enough deprecated functionality to warrant a new MAJOR release, or when a feature cannot be implemented in a backwards-compatible way. When releasing a new major version:
 
-1. Create and publish a final MINOR release of the existing line as a tag in `MAJOR.0`
-1. Create a new `MAJOR+1.x` line based on the latest version of `MAJOR.0`
+1. Create and publish a final MINOR release of the existing line as a tag in the default `MAJOR.x`
+1. Create a new `MAJOR+1.x` line based on the latest version of `MAJOR.x`
 1. Promote the new `MAJOR+1.x` branch to be the default branch
 1. Remove the previous `MAJOR.x` branch
 1. Create a `MAJOR+1.0` release when the new major release is ready.
 
 As an example, if an SDK is currently on `4.x` with the lastest release being `4.5`:
 
-1. If there are pending fixes in `4.x` waiting for release, merge `4.x` branch into `4.0`.
-1. Tag a `4.6.0` release in `4.0`
-1. Create a `5.x` branch off of the latest `4.0` code
+1. Tag a `4.6.0` release in `4.x`
+1. Create a `5.x` branch off of the latest `4.x` code
 1. Make `5.x` the default branch in Github
-1. Delete the `4.x` branch
 1. Merge the breaking changes into `5.x`
-1. Create a new `5.0` branch and release 5.0.0
+1. Tag a release 5.0.0 release in `5.x`
 
 # SDK Support
 
