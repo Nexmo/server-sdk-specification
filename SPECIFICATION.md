@@ -200,3 +200,66 @@ Whenever a new feature is added to the SDK that does not induce a breaking chang
 ## Patch Versions
 
 Whenever a new release is warranted to only preform bug fixes it will be considered a patch version.
+
+# Git Structure
+
+As the APIs evolve over time, there will be instances were multiple versions of the SDKs will need to be supported at the same time. To better facilitate this, the Server SDK repositories will follow a common version branching structure for releases. This structure is similiar to, but not exactly, [Gitflow](https://nvie.com/posts/a-successful-git-branching-model/).
+
+## Branch Structure
+
+The SDKs will follow a `MAJOR.x` release branch naming structure, with mainline work being done in a `MAJOR.x` branch. `MAJOR.x` will be assigned as the default branch for the SDK. `master` will no longer be used as a branch name at all. 
+
+When a new MINOR release is to be released, `MAJOR.x` will be branched to `MAJOR.0`, and the `MAJOR.MINOR` will be tagged to generated `MAJOR.MINOR` release. For example, `3.0.0` would be inside the `3.0` branch, and exist as a tag. `3.0.1` would be a tag inside the `3.0` branch as well. The current `MAJOR.x` branch should not contain any releases except for beta or alpha releases.
+
+**Branch Example:**
+Given an SDK that is currently working against a `4.x` release, the branch structure would look like the following:
+
+* `4.x` (default)
+* `1.x`
+* `2.x`
+* `3.x`
+
+## Workflows
+
+Most work will be for one of two things - new features or bug fixes. The only major workflow differences are determining which branch that the work should be based on. Major releases will function as New Features, but have a few additional steps needed to make the appropriate branches.
+
+### New Features
+
+New features are always based on, and pull requested against, the current default branch. For example, if the SDK is using `4.x` as the default branch, the new feature will be based on that branch. This is the same workflow as if we had a `master` branch. The pull request will be reviewed and will be available with the next minor version release. 
+
+New features will not be made available to previous MAJOR releases, even if the MAJOR release is still in a support window. For example, if the current MAJOR version is 4.x, and 3.x is still supported, a new API feature will be created against and only be available in the 4.x line.
+
+### Bug Fixes
+
+For bug fixes, a pull request and patch should be made against the oldest supported major release that the bug exists in. This allows the fix to be up-merged to all releases that contain the bug. For example, say we currently support the 3.x and 4.x lines of the SDK, and a new bug is discovered in 4.1.0, but after triaging was actually introduced in 3.5.0. The PR would be based on the `3.x` branch, and the pull request set to merge back into `3.x`. Once the pull request is approved and merged into `3.x`, `3.x` can then be merged into any newer supported branches, extending the bugfix to any supported versions.
+
+If a bug was introduced in a non-supported version, the bug fix will only be fixed in the oldest supported `MAJOR.x` release it exists in. With the above given support structure, a bug that was introduced in `2.5.0` would only be fixed in `3.x` and higher, if it still exists. If a bug is discovered in `1.7.2` and fixed in the `3.0.0` release, no fix would be created as 1.x and 2.x are not supported, and the bug was already fixed in the oldest supported release, `3.0.0`.
+
+### New Major Releases
+
+As outlined in [Providing a Clean Upgrade Path](https://github.com/Nexmo/server-sdk-specification/blob/master/SPECIFICATION.md#providing-a-clean-upgrade-path), new features should be in such a way as to preserve the old functionality. This allows the old functionality to be deprecated but not removed, allowing developers time to upgrade their code before forcing them to a new MAJOR version.
+
+A new major version may be cut when there is enough deprecated functionality to warrant a new MAJOR release, or when a feature cannot be implemented in a backwards-compatible way. When releasing a new major version:
+
+1. Create and publish a final MINOR release of the existing line as a tag in the default `MAJOR.x`
+1. Create a new `MAJOR+1.x` line based on the latest version of `MAJOR.x`
+1. Promote the new `MAJOR+1.x` branch to be the default branch
+1. Remove the previous `MAJOR.x` branch
+1. Create a `MAJOR+1.0` release when the new major release is ready.
+
+As an example, if an SDK is currently on `4.x` with the lastest release being `4.5`:
+
+1. Tag a `4.6.0` release in `4.x`
+1. Create a `5.x` branch off of the latest `4.x` code
+1. Make `5.x` the default branch in Github
+1. Merge the breaking changes into `5.x`
+1. Tag a release 5.0.0 release in `5.x`
+
+# SDK Support
+
+Under the normal course of development, the Server SDKs operate under the following Service Level Agreement:
+
+1. New features in General Availablity APIs will be implemented within six weeks of API availability
+1. The SDK team will support the current release line for new features and bug fixes
+1. The SDK team will support the previous release line for 6 months of bug fixes
+1. Any beta features made available in any SDK will provide no support and will be considered best effort. 
