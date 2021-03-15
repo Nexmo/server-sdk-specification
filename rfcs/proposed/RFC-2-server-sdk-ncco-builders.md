@@ -70,7 +70,7 @@ Each NCCO action MAY be able to be accessed via its own method name accessed on 
 end
 ```
 
-The NCCO builder MUST NOT be part of the SDK client instantiation. Adding the NCCO builder to the client could cause confusion for users as the expectation for client methods is a direct interaction with the Vonage APIs. In this regard, it SHOULD be similar to the JWT generator as specified in its [RFC](https://raw.githubusercontent.com/Nexmo/server-sdk-specification/main/rfcs/accepted/RFC-1-server-sdk-jwt-packages.md).
+The NCCO builder MUST NOT require an SDK Client as a dependency. As the NCCO Builder does not access the Vonage APIs, it MUST be standalone objects. In this regard, it SHOULD be similar to the JWT generator as specified in its [RFC](https://raw.githubusercontent.com/Nexmo/server-sdk-specification/main/rfcs/accepted/RFC-1-server-sdk-jwt-packages.md).
 
 The NCCO builder MUST return a fully constructed NCCO in the form of an array, with each action represented as a hash inside the array.
 
