@@ -38,7 +38,7 @@ ncco = Vonage::Voice::Ncco.build(talk, input)
 # => [{:action=>"talk", :text=>"Hello World!"}, {:action=>"input", :type=>["dtmf"], :dtmf=>{:bargeIn=>true}}]
 ```
 
-Each NCCO action MUST be able to be accessed via its own method name accessed on the NCCO class. For example, the `connect` action would be accessed as `Vonage::Voice::Ncco.connect` and the `notify` action would be accessed as `Vonage::Voice::Ncco.notify`. For example, the following would accomplish this in the Ruby SDK:
+Each NCCO action MAY be able to be accessed via its own method name accessed on the NCCO builder class. For example, the `connect` action would be accessed as `Vonage::Voice::Ncco.connect` and the `notify` action would be accessed as `Vonage::Voice::Ncco.notify`. For example, the following would accomplish this in the Ruby SDK:
 
 ```ruby
 	module Vonage
