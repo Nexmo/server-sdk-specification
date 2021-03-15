@@ -26,7 +26,7 @@ We can offer a comprehensive NCCO builder in each of the mainline Vonage SDKs th
 
 ### Technical Specifications
 
-The NCCO builder MUST be instantiable. By providing distinct instantiations for each NCCO action, it becomes easier to provide specific feedback on each unique action for the developer. For example, there may be multiple `type` parameters throughout the NCCO actions, but the specifications for `type` will be different for each unique NCCO action. The disaggregation and unique instantiation of each action as its own class allows for that fine attention to detail.
+Each SDK MUST provide an NCCO Builder, which combines multiple actions into a singular NCCO collection, and NCCO Actions, which are individual actions that can be taken. The NCCO builder and NCCO actions MUST be instantiable. By providing distinct instantiations, it becomes easier to provide specific feedback on each unique action for the developer. For example, there may be multiple `type` parameters throughout the NCCO actions, but the specifications for `type` will be different for each unique NCCO action. The disaggregation and unique instantiation of each action as its own class allows for that fine attention to detail.
 
 ```ruby
 # Standalone NCCO with two actions
@@ -38,7 +38,7 @@ ncco = Vonage::Voice::Ncco.build(talk, input)
 # => [{:action=>"talk", :text=>"Hello World!"}, {:action=>"input", :type=>["dtmf"], :dtmf=>{:bargeIn=>true}}]
 ```
 
-Each NCCO action MUST be able to be accessed via its own method name accessed on the NCCO class. For example, the `connect` action would be accessed as `Vonage::Voice::Ncco.connect` and the `notify` action would be accessed as `Vonage::Voice::Ncco.notify`. For example, the following would accomplish this in the Ruby SDK:
+Each NCCO action MAY be able to be accessed via its own method name accessed on the NCCO builder class. For example, the `connect` action would be accessed as `Vonage::Voice::Ncco.connect` and the `notify` action would be accessed as `Vonage::Voice::Ncco.notify`. For example, the following would accomplish this in the Ruby SDK:
 
 ```ruby
 module Vonage
@@ -70,7 +70,7 @@ module Vonage
 end
 ```
 
-The NCCO builder MUST NOT be part of the SDK client instantiation. Adding the NCCO builder to the client could cause confusion for users as the expectation for client methods is a direct interaction with the Vonage APIs. In this regard, it SHOULD be similar to the JWT generator as specified in its [RFC](https://raw.githubusercontent.com/Nexmo/server-sdk-specification/main/rfcs/accepted/RFC-1-server-sdk-jwt-packages.md).
+The NCCO builder MUST NOT require an SDK Client as a dependency. As the NCCO Builder does not access the Vonage APIs, it MUST be standalone objects. In this regard, it SHOULD be similar to the JWT generator as specified in its [RFC](https://raw.githubusercontent.com/Nexmo/server-sdk-specification/main/rfcs/accepted/RFC-1-server-sdk-jwt-packages.md).
 
 The NCCO builder MUST return a fully constructed NCCO in the form of an array, with each action represented as a hash inside the array.
 
@@ -163,4 +163,3 @@ The NCCO builder's method and parameter names SHOULD conform to the NCCO naming 
 ## Record of Votes
 
 ## Resolution
-
