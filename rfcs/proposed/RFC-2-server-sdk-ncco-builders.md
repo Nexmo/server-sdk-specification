@@ -80,51 +80,51 @@ The NCCO builder's method and parameter names SHOULD conform to the NCCO naming 
 
 #### Record
 
-| Parameter | Description                                 | Data Type | Default Value                          | Required |
+| Parameter | Description                                 | Data Type | Values                          | Required |
 | --------- | ------------------------------------------- | --------- | -------------------------------------- | -------- |
 | `format`  | Record the call in a specific format        | string    | `mp3` or `wav` if more than 2 channels | No       |
-| `split`   | Record the send and received audio in separate channels | string | none | No |
-| `channels` | Number of channels to record (max `32`), `conversation` must also be enabled | integer | none | No |
-| `endOnSilence` | Stop recording after `n` seconds of silence | integer | none | No |
-| `endOnKey` | Stp recording when a digit is pressed, possible values are `*`, `#` or a single digit between `0-9` | string | none | No |
-| `timeOut` | Max length of a recording in seconds, between `3` and `7200` | integer | none | No |
+| `split`   | Record the send and received audio in separate channels | string |  | No |
+| `channels` | Number of channels to record (max `32`), `conversation` must also be enabled | integer |  | No |
+| `endOnSilence` | Stop recording after `n` seconds of silence | integer |  | No |
+| `endOnKey` | Stp recording when a digit is pressed, possible values are `*`, `#` or a single digit between `0-9` | string |  | No |
+| `timeOut` | Max length of a recording in seconds, between `3` and `7200` | integer |  | No |
 | `beepStart` | Set to `true` to play a beep when recording starts | boolean | `false` | No |
-| `eventUrl` | URL for the webhook endpoint | string | none | No |
+| `eventUrl` | URL for the webhook endpoint | string |  | No |
 | `eventMethod` | HTTP method for request to `eventUrl` | string | `POST` | No |
 
 #### Conversation
 
-| Parameter | Description                                 | Data Type | Default Value                          | Required |
+| Parameter | Description                                 | Data Type | Values                          | Required |
 | --------- | ------------------------------------------- | --------- | -------------------------------------- | -------- |
-| `name` | Name of the conversation | string | none | Yes |
-| `musicOnHoldUrl` | URL to `mp3` file to stream to participants before conversation starts, `startOnEnter` must be set to `false` for this to be enabled | string | none | No |
+| `name` | Name of the conversation | string |  | Yes |
+| `musicOnHoldUrl` | URL to `mp3` file to stream to participants before conversation starts, `startOnEnter` must be set to `false` for this to be enabled | string |  | No |
 | `startOnEnter` | Conversation starts when first participant joints | boolean | `true` | No |
 | `endOnExit` | Conversation ends when moderator hangs up | boolean | `false` | No |
 | `record` | Record the conversation | boolean | `false` | No |
-| `canSpeak` | An array of leg UUIDs that participant can be heard by, if not provided can be heard by all. An empty list will silence them for everyone. | array | none | No |
-| `canHear` | An array of leg UUIDs that participant can hear, if not provided can hear all. An empty list will silence everyone for them. | array | none | No |
+| `canSpeak` | An array of leg UUIDs that participant can be heard by, if not provided can be heard by all. An empty list will silence them for everyone. | array |  | No |
+| `canHear` | An array of leg UUIDs that participant can hear, if not provided can hear all. An empty list will silence everyone for them. | array |  | No |
 | `mute` | Mute the particpant, default `false` | boolean | `false` | No |
 
 
 #### Connect
 
-| Parameter | Description                                 | Data Type | Default Value                          | Required |
+| Parameter | Description                                 | Data Type | Values                          | Required |
 | --------- | ------------------------------------------- | --------- | -------------------------------------- | -------- |
-| `endpoint` | An array of one endpoint to connect to, see [possible endpoints](https://developer.vonage.com/voice/voice-api/ncco-reference#endpoint-types-and-values) | array | none | Yes |
-| `from` | A number in `E.164` format that identifies the caller | string | none | No |
-| `eventType` | Set to `synchronous` to make the action synchronous | string | none | No |
+| `endpoint` | An array of one endpoint to connect to, see [possible endpoints](https://developer.vonage.com/voice/voice-api/ncco-reference#endpoint-types-and-values) | array |  | Yes |
+| `from` | A number in `E.164` format that identifies the caller | string |  | No |
+| `eventType` | Set to `synchronous` to make the action synchronous | string |  | No |
 | `timeout` | Number of seconds call rings for if unanswered. Default is `60` | integer | `60` | No |
 | `limit` | Max length of call in seconds | integer | `7200` | No |
-| `machineDetection` | Behavior when API detects an answering machine, either `continue` or `hangup` | string | none | No |
-| `eventUrl` | URL for webhook event data | array | none | No |
+| `machineDetection` | Behavior when API detects an answering machine, either `continue` or `hangup` | string |  | No |
+| `eventUrl` | URL for webhook event data | array |  | No |
 | `eventMethod` | HTTP method for the event URL | string | `POST` | No |
-| `ringbackTone` | A URL that points to a tone to played on repeat to caller while ringing | string | none | No |
+| `ringbackTone` | A URL that points to a tone to played on repeat to caller while ringing | string |  | No |
 
 #### Talk
 
-| Parameter | Description                                 | Data Type | Default Value                          | Required |
+| Parameter | Description                                 | Data Type | Values                          | Required |
 | --------- | ------------------------------------------- | --------- | -------------------------------------- | -------- |
-| `text` | A string up to 1,500 characters containing the TTS message | string | none | Yes |
+| `text` | A string up to 1,500 characters containing the TTS message | string |  | Yes |
 | `bargeIn` | Action is terminated when user interacts either with DTMF or ASR input if set to `true` | boolean | `false` | No |
 | `loop` | Number of times the audio is repeated before call is closed | integer | `1` | No |
 | `level` | Audio level for stream between `-1` and `1` with a precision of `0.1` | integer | `0` | No |
@@ -134,9 +134,9 @@ The NCCO builder's method and parameter names SHOULD conform to the NCCO naming 
 
 #### Stream
 
-| Parameter | Description                                 | Data Type | Default Value                          | Required |
+| Parameter | Description                                 | Data Type | Values                          | Required |
 | --------- | ------------------------------------------- | --------- | -------------------------------------- | -------- |
-| `streamUrl` | URL to an mp3 or wav audio file | array | none | Yes |
+| `streamUrl` | URL to an mp3 or wav audio file | array |  | Yes |
 | `level` | Audio level for stream between `-1` and `1` with a precision of `0.1` | integer | `0` | No |
 | `bargeIn` | Action is terminated when user interacts either with DTMF or ASR input if set to `true` | boolean | `false` | No |
 | `loop` | Number of times the audio is repeated before call is closed | integer | `1` | No |
@@ -144,20 +144,20 @@ The NCCO builder's method and parameter names SHOULD conform to the NCCO naming 
 
 #### Input
 
-| Parameter | Description                                 | Data Type | Default Value                          | Required |
+| Parameter | Description                                 | Data Type | Values                          | Required |
 | --------- | ------------------------------------------- | --------- | -------------------------------------- | -------- |
-| `type`    | Input type: `['dtmf']`, `['speech']` or `['dtmf', 'speech']` | array | none | Yes |
-| `dtmf` | See [NCCO Reference](https://developer.vonage.com/voice/voice-api/ncco-reference#dtmf-input-settings) | hash | none | No |
-| `speech` | See [NCCO Reference](https://developer.vonage.com/voice/voice-api/ncco-reference#dtmf-speech-settings) | hash | none | No |
-| `eventUrl` | Send webhook events to this URL | string | none | No |
+| `type`    | Input type: `['dtmf']`, `['speech']` or `['dtmf', 'speech']` | array |  | Yes |
+| `dtmf` | See [NCCO Reference](https://developer.vonage.com/voice/voice-api/ncco-reference#dtmf-input-settings) | hash |  | No |
+| `speech` | See [NCCO Reference](https://developer.vonage.com/voice/voice-api/ncco-reference#dtmf-speech-settings) | hash |  | No |
+| `eventUrl` | Send webhook events to this URL | string |  | No |
 | `eventMethod` | HTTP method to use for `eventUrl` | string | `POST` | No |
 
 #### Notify
 
-| Parameter | Description                                 | Data Type | Default Value                          | Required |
+| Parameter | Description                                 | Data Type | Values                          | Required |
 | --------- | ------------------------------------------- | --------- | -------------------------------------- | -------- |
-| `payload` | The JSON body to send to your event URL | JSON | none | Yes |
-| `eventUrl` | The URL to send to events to | string | none | Yes |
+| `payload` | The JSON body to send to your event URL | JSON |  | Yes |
+| `eventUrl` | The URL to send to events to | string |  | Yes |
 | `eventMethod` | HTTP method to use when sending `payload` | string | `POST` | No |
 
 ## Record of Votes
