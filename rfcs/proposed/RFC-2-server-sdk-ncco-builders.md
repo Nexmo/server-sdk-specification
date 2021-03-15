@@ -26,7 +26,7 @@ We can offer a comprehensive NCCO builder in each of the mainline Vonage SDKs th
 
 ### Technical Specifications
 
-The NCCO builder MUST be instantiable. By providing distinct instantiations for each NCCO action, it becomes easier to provide specific feedback on each unique action for the developer. For example, there may be multiple `type` parameters throughout the NCCO actions, but the specifications for `type` will be different for each unique NCCO action. The disaggregation and unique instantiation of each action as its own class allows for that fine attention to detail.
+Each SDK MUST provide an NCCO Builder, which combines multiple actions into a singular NCCO collection, and NCCO Actions, which are individual actions that can be taken. The NCCO builder and NCCO actions MUST be instantiable. By providing distinct instantiations, it becomes easier to provide specific feedback on each unique action for the developer. For example, there may be multiple `type` parameters throughout the NCCO actions, but the specifications for `type` will be different for each unique NCCO action. The disaggregation and unique instantiation of each action as its own class allows for that fine attention to detail.
 
 ```ruby
 # Standalone NCCO with two actions
@@ -163,4 +163,3 @@ The NCCO builder's method and parameter names SHOULD conform to the NCCO naming 
 ## Record of Votes
 
 ## Resolution
-
