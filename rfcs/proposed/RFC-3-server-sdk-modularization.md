@@ -77,7 +77,7 @@ Each module will maintain its own version numbers, but every module MUST follow 
 
 * GA releases MUST be tagged in `MAJOR.MINOR.PATCH`
 * GA Release Candidates MUST be tagged in `MAJOR.MINOR.PATCH-rc.X`
-* Beta releases MUST be tagged in `MAJOR.MINOR.PATH-beta.X`
+* Beta releases MUST be tagged in `MAJOR.MINOR.PATCH-beta.X`
 * Developer Preview releases MUST be tagged in `MAJOR.MINOR.PATH-alpha.X`
 
 For SDKs with existing code that is being turned into a module, the new module SHOULD carry over the existing version number. For example, if the PHP client is at `vonage/client-core:3.1.0`, each new module MAY begin at `3.1.0`. Brand new modules MUST start at `1.0.0-(rc|beta|alpha).1`, as specified by the product's current release label.
