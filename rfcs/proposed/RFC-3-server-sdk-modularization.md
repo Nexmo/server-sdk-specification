@@ -76,7 +76,7 @@ NodeJS would supply the following packages:
 Each module will maintain its own version numbers, but every module MUST follow [SemVer](https://semver.org/). While the SDKs currently support semver, additional levels of versioning must be maintained for "Developer Preview" and "Beta" releases of modules. 
 
 * GA releases MUST be tagged in `MAJOR.MINOR.PATCH`
-* GA Release Candidates MUST be tagged in `MAJOR.MINOR.PATH-rc.X`
+* GA Release Candidates MUST be tagged in `MAJOR.MINOR.PATCH-rc.X`
 * Beta releases MUST be tagged in `MAJOR.MINOR.PATH-beta.X`
 * Developer Preview releases MUST be tagged in `MAJOR.MINOR.PATH-alpha.X`
 
