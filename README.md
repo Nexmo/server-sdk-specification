@@ -1,17 +1,17 @@
-Nexmo Client Libraries
+Vonage Client Libraries
 ======================
 
 This repository contains:
 
-- The [generic functional specification][spec] for Nexmo client libraries.
+- The [generic functional specification][spec] for Vonage client libraries.
 - [Related examples][examples] as guides to implementing the specification.
 - Templates for library [README][readme] and [LICENSE][license].
 
 Workflow
 --------
-- Client Libraries repositories should be named in this format: `nexmo-[language/runtime]`
-  For example: `nexmo-java`, `nexmo-php`, `nexmo-node`
-- Releases should be tagged with semantic versions from the `master` branch.
+- Client Libraries repositories should be named in this format: `vonage-[language/runtime]-sdk`
+  For example: `vonage-java-sdk`, `vonage-php-sdk`, `vonage-node-sdk`
+- Releases should be tagged with semantic versions from the `main` branch.
 
 Contributions
 -------------

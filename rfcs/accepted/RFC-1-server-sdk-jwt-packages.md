@@ -18,18 +18,18 @@ Chris Tankersley
 ## Detail
 JWT authentication is being used on newer APIs being deployed by Vonage as it provides a finer grain of control over authorization between clients. New applications being developed using APIs such as Messages or Conversations are increasingly being developed by outside teams such as Pre-Sales, and there is a large need for generating JWTs easily. Vonage currently offeres two solutions:
 
-* `nexmo/cli`, which can generate JWTs
-* `nexmo-java-jwt`, which can generate JWTs in Java
+* `vonage/cli`, which can generate JWTs
+* `vonage-java-jwt`, which can generate JWTs in Java
 
 These solutions do not cover the full gamut of with internal teams need, and as we can track via API usage we have a large set of customers using our APIs outside of the Java landscape. Many customers do not use our SDKs as they are implementing our Developer Preview or Beta level products, which do not include SDK support. While customers could introduce our SDKs as dependencies, this introduces a large dependency for a small need. Many customers do not want this.
 
-All of our mainline SDKs already support generating JWTs in some capacity, but generally these JWTs are very wide in capability scope or run under the assumption they are used just for the Voice API. Some SDKs expose JWT generation in a fairly clean-room implementation inside the SDK code itself, while others are tightly coupled to their Nexmo Client integrations.
+All of our mainline SDKs already support generating JWTs in some capacity, but generally these JWTs are very wide in capability scope or run under the assumption they are used just for the Voice API. Some SDKs expose JWT generation in a fairly clean-room implementation inside the SDK code itself, while others are tightly coupled to their Vonage Client integrations.
 
 JWTs by themselves are an industry standard (https://jwt.io/) and there are libraries for creating raw JWT objects, but there is additional complexity in crafting the JWT to the expectations of Vonage. By offering a standalone JWT package per-language, we can offer customers a quick development win by making it easy to generate Vonage-compatible JWTs with our requirements, and continue to allow developers and customers the ability to not have to require a “kitchen sink” SDK for one small operation.
 
 ## Proposed Solution
 ### Packaging
-Vonage will provide a self contained JWT token generator for each language, that is automatically installed in the SDKs but can also be installed via each language’s package manager. The package will be stored as an open-source project on Github under `nexmo/vonage-jwt-[language]` and will be maintained with the same level of maintenance we provide the full server SDKs.
+Vonage will provide a self contained JWT token generator for each language, that is automatically installed in the SDKs but can also be installed via each language’s package manager. The package will be stored as an open-source project on Github under `vonage/vonage-jwt-[language]` and will be maintained with the same level of maintenance we provide the full server SDKs.
 
 Where possible, the package should be made available as vonage/jwt in the various package managers, or a name as close as possible to this scheme.
 
@@ -122,13 +122,13 @@ The Vonage JWT packages SHOULD depend on third party JWT generation libraries fo
 | - | - | TTL | Integer representing seconds in which determines how long the token should last. Should be used with iat to help generate exp | int | 900 | N/A |
 |Claim | exp | - | Unix Timestamp (UTC+0), in seconds, when the JWT expires. Must be at least 30 seconds, maximum of 24 hours, from the iat, and generating using the TTL value. | int | Yes |
 | Claim | acl->paths | Path / Paths | Path information for access control to API routes | object | No |
-| Claim | sub | Subject | “Subject” or user created and associated with the Nexmo Application | string | No |
+| Claim | sub | Subject | “Subject” or user created and associated with the Vonage Application | string | No |
 
 * - Machine Names may be converted to camelCase, snake_case, or PascalCase as appropriate for the implementing language.
 
 ### Further API JWT documentation:
-* General JWT - https://developer.nexmo.com/concepts/guides/authentication#json-web-tokens-jwt
-* Conversations JWT - https://developer.nexmo.com/conversation/guides/jwt-acl
+* General JWT - https://developer.vonage.com/concepts/guides/authentication#json-web-tokens-jwt
+* Conversations JWT - https://developer.vonage.com/conversation/guides/jwt-acl
 * ACLs - JWT Access Control Lists
 
 ## Record of Votes

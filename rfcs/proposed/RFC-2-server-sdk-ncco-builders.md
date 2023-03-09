@@ -60,7 +60,7 @@ module Vonage
     end
 
     def self.method_missing(method)
-      raise ClientError.new("NCCO action must be one of the valid options. Please refer to https://developer.nexmo.com/voice/voice-api/ncco-reference#ncco-actions for a complete list.")
+      raise ClientError.new("NCCO action must be one of the valid options. Please refer to https://developer.vonage.com/voice/voice-api/ncco-reference#ncco-actions for a complete list.")
     end
 
     def self.create(*actions)
@@ -70,7 +70,7 @@ module Vonage
 end
 ```
 
-The NCCO builder MUST NOT require an SDK Client as a dependency. As the NCCO Builder does not access the Vonage APIs, it MUST be standalone objects. In this regard, it SHOULD be similar to the JWT generator as specified in its [RFC](https://raw.githubusercontent.com/Nexmo/server-sdk-specification/main/rfcs/accepted/RFC-1-server-sdk-jwt-packages.md).
+The NCCO builder MUST NOT require an SDK Client as a dependency. As the NCCO Builder does not access the Vonage APIs, it MUST be standalone objects. In this regard, it SHOULD be similar to the JWT generator as specified in its [RFC](https://raw.githubusercontent.com/Vonage/server-sdk-specification/main/rfcs/accepted/RFC-1-server-sdk-jwt-packages.md).
 
 The NCCO builder MUST return a fully constructed NCCO in the form of an array, with each action represented as a hash inside the array.
 

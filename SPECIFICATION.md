@@ -1,25 +1,25 @@
 # Server SDK Specification
-The goal of this document is to make all Nexmo Server Libraries have a similar feel, while still adopting the standard practice and usage of each language. This is mostly a functional specification based on the user's interaction with the server library.
+The goal of this document is to make all Vonage Server Libraries have a similar feel, while still adopting the standard practice and usage of each language. This is mostly a functional specification based on the user's interaction with the server library.
 
 * This document is a work in progress and should be changed and updated as changes are made to the APIs or developer needs are discovered.
 * Server Libraries attempt to make the API and the data it provides simple and easy to use. In some cases, this may involve implementing small amounts of extra functionality in the client.
 * This specification is designed primarily for object-oriented languages that support inheritance. In other systems, this specification should be adapted to the conventions of the target language.
 
 ## General Principles
-* Ideally, our server libraries should provide a simple, easy-to-use interface to the Nexmo APIs. In practice, the libraries should attempt to clean up some of the data required or returned by the older APIs. (ints returned as strings in JSON, for example, or more complex: parsed timestamps to native date objects). While the SDKs may provide a low-level interface to directly interact with the API, each SDK should provide an interface that abstracts out the fact the SDK is backed by an HTTP API.
+* Ideally, our server libraries should provide a simple, easy-to-use interface to the Vonage APIs. In practice, the libraries should attempt to clean up some of the data required or returned by the older APIs. (ints returned as strings in JSON, for example, or more complex: parsed timestamps to native date objects). While the SDKs may provide a low-level interface to directly interact with the API, each SDK should provide an interface that abstracts out the fact the SDK is backed by an HTTP API.
 * JSON data structures are not native to most programming languages, and so should not be expected or provided by the API's top-level methods. The data should be deserialized soon, serialized late, and held in objects which can provide richer functionality than simple dicts, lists, etc.
 * Our libraries should be explicit. In some cases, it may be less work to have the library definition defined in a data file and dynamically loaded. In practice, this causes problems for IDEs and autocompletion.
 * Parameters should be provided either directly to functions or as part of a 'request' object. They should not be provided as a single dictionary to the function when possible, as this sidesteps all of any IDEs auto-completion. Where groups of parameters go together it makes sense to put them in a value object, which can then be provided as a single parameter.
 * Naming conflicts with language keywords or globals, (e.g: `to` is a keyword in Python) should be corrected using the language's accepted convention. (In Python it is to add an underscore suffix, e.g: `to_`). If you rename a value, document the change in this specification, and ensure it is renamed consistently across all endpoints.
 * For the endpoints which return `420 Enhance your calm`, we will do additional sensible validation before sending the request to the server and additional validation on the response.
 * For endpoints that return a `200 OK` but have an error in the body, we need to check for these on each response. This also includes partial OKs, like with the SMS API. These should be exposed as an error to the user.
-* Although most of Nexmo's APIs are mostly RESTful, this is an implementation detail, and not something we should necessarily promote to the user, who should not care about the semantics of different HTTP verbs such as GET, POST or PUT.
+* Although most of Vonage's APIs are mostly RESTful, this is an implementation detail, and not something we should necessarily promote to the user, who should not care about the semantics of different HTTP verbs such as GET, POST or PUT.
 * Errors should be reported using the language's error functionality. In languages like Java and Python, this would involve throwing an appropriate Exception object. In languages such as Go or Rust, this would involve returning an appropriate error from the function. This means any object returned from the API which represents an error should be used to populate an error type.
 * We should keep third-party dependencies lightweight, but we should not shy away from bringing in third-party dependencies where they make sense. Where depending on third party libraries we should use libraries that are 'de-facto standard' wherever possible. No proprietary dependencies on the SDKs to minimize dependencies disappearing due to commercial interests.
   
 # Callbacks
 Support should be provided for parsing callback data and verifying the callback. Details to be hashed out.
-Callback support may be provided in a separate module with extra dependencies to the core nexmo library.
+Callback support may be provided in a separate module with extra dependencies to the core Vonage library.
 
 # Behavior
 ## HTTP Transports
@@ -70,10 +70,10 @@ Testing suites should be implemented in the language's standard tooling, such as
 Additional testing may be placed on top of standard unit tests. Server Library maintainers may add additional testing like lint testing, style checking, and static analysis when they see fit.
 
 # Structure
-The top-level entity is a class/struct called NexmoClient. In languages where the library would be imported and used under the 'nexmo' namespace, it may be called Client. E.g `nexmo.Client`. 
+The top-level entity is a class/struct called VonageClient. In languages where the library would be imported and used under the 'vonage' namespace, it may be called Client. E.g `vonage.Client`. 
 
 ## Further Namespacing
-It is possible to put all the required functionality directly into the NexmoClient object, but this creates a large single class, with the potential for naming conflicts. For example, createConversation could exist in the voice and conversation APIs. To avoid this, in languages where this is considered relatively standard, the NexmoClient object should contain fields for each of Nexmo's APIs:
+It is possible to put all the required functionality directly into the VonageClient object, but this creates a large single class, with the potential for naming conflicts. For example, createConversation could exist in the voice and conversation APIs. To avoid this, in languages where this is considered relatively standard, the VonageClient object should contain fields for each of Vonage's APIs:
 
 * Account
 * Audit
@@ -122,7 +122,7 @@ Each function should take the form of verbNoun, with suggestions for verbs from 
 * `update` - Update an existing object with a new copy/data
 
 # Errors
-In most cases, assuming a system supporting inheritance, there should be a top-level NexmoException, extended by NexmoClientException, for reporting errors with the way the API is being used by the client and [NexmoServerException](https://tools.ietf.org/html/rfc7807) for server errors, [NexmoValidationException]( https://nexmo.github.io/api-standards/http-code/400/) or problems with the network or Nexmo APIs. These exceptions will be extended further for more specific cases where more data should be stored in the exception. (Given that each language has a convention for Exception vs Error, these should be adapted to NexmoError, NexmoClientError, as necessary).
+In most cases, assuming a system supporting inheritance, there should be a top-level VonageException, extended by VonageClientException, for reporting errors with the way the API is being used by the client and [VonageServerException](https://tools.ietf.org/html/rfc7807) for server errors, [VonageValidationException]( https://nexmo.github.io/api-standards/http-code/400/) or problems with the network or Vonage APIs. These exceptions will be extended further for more specific cases where more data should be stored in the exception. (Given that each language has a convention for Exception vs Error, these should be adapted to VonageError, VonageClientError, as necessary).
 
 ## Exception Handling
 The language's native exception/error reporting system should be used for all errors handled by the server library. Endpoints that return 200 or 420 responses on error will be parsed in the server library and converted to appropriate errors where possible.
@@ -131,7 +131,7 @@ Partially successful responses (not all parts sent successfully, for example) wi
 
 # Client Construction
 ## Authentication
-Either a constructor or initializer should allow the creation of a NexmoClient object with appropriate credential parameters;
+Either a constructor or initializer should allow the creation of a VonageClient object with appropriate credential parameters;
 
 This will be one or more of:
 * API KEY & SECRET
@@ -151,7 +151,7 @@ Different functions will only support a subset of these, therefore if a function
 A client object should allow the base URL to be overridden when it is created.
 
 ## Recommended Environment Variable Names
-This is intended for framework-specific extensions where we magically bootstrap a Nexmo Client in a service provider etc.
+This is intended for framework-specific extensions where we magically bootstrap a Vonage Client in a service provider etc.
 
 * `NEXMO_API_KEY`
 * `NEXMO_API_SECRET`
@@ -166,16 +166,16 @@ The client should provide a function for generating a JWT to be used by custom-b
 
 ## User Agent Reporting
 
-To better understand the usage of needs of developers building on Nexmo, libraries:
+To better understand the usage of needs of developers building on Vonage, libraries:
 
 * MUST identify requests as originating from the library.
 * MUST report internal client library version in each request.
 * MUST set a user-agent with the following format: `LIBRARY-NAME/LIBRARY-VERSION LANGUAGE-NAME/LANGUAGE-VERSION`
-    Example: `nexmo-php/1.0.0 php/7.0.8`
+    Example: `vonage-php-sdk/1.0.0 php/7.0.8`
 * SHOULD report language version in each request, if not possible MUST report version as `-`
-    Example: `nexmo-php/1.0.0 php/-`
+    Example: `vonage-php-sdk/1.0.0 php/-`
 * MUST allow an application name and version to be appended with the following format: `APP-NAME/APP-VERSION`
-    Example: `nexmo-php/1.0.0 php/7.0.8 demo/2.0`
+    Example: `vonage-php-sdk/1.0.0 php/7.0.8 demo/2.0`
 
 # Versioning
 
@@ -237,7 +237,7 @@ If a bug was introduced in a non-supported version, the bug fix will only be fix
 
 ### New Major Releases
 
-As outlined in [Providing a Clean Upgrade Path](https://github.com/Nexmo/server-sdk-specification/blob/master/SPECIFICATION.md#providing-a-clean-upgrade-path), new features should be in such a way as to preserve the old functionality. This allows the old functionality to be deprecated but not removed, allowing developers time to upgrade their code before forcing them to a new MAJOR version.
+As outlined in [Providing a Clean Upgrade Path](https://github.com/Vonage/server-sdk-specification/blob/master/SPECIFICATION.md#providing-a-clean-upgrade-path), new features should be in such a way as to preserve the old functionality. This allows the old functionality to be deprecated but not removed, allowing developers time to upgrade their code before forcing them to a new MAJOR version.
 
 A new major version may be cut when there is enough deprecated functionality to warrant a new MAJOR release, or when a feature cannot be implemented in a backwards-compatible way. When releasing a new major version:
 
